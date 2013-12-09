@@ -1,0 +1,471 @@
+﻿<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Akka</title>
+
+		<meta name="author" content="吉井 温">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/sky.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+				<section data-markdown>
+           <script type="text/template">
+              ## Akka
+           </script>
+        </section>
+        <section>
+          <section data-markdown>
+            <script type="text/template">
+              ## 誰？
+            </script>
+          </section>
+          <section data-markdown>
+            <script type="text/template">
+              * 名前 :吉井 温（よしい　すなお）
+              * HN   :つつじー、白躑躅、white-azalea
+              * 会社 :(株)アドバンストソフトエンジニアリング
+              * 仕事 :ScalaでWeb系システム作ってます
+              * 趣味 :ラノベ、ゲーム、プログラム言語
+              * Blog :謎言語使いの徒然
+              
+              自他共に認める言語オタクという人種です。
+              (最近は WindowsPowerShell でニヨニヨしつつScala弄ってます)
+            </script>
+          </section>
+        </section>
+        <section>
+          <section data-markdown>
+            <script type="text/template">
+              ## Q.マジで仕事でScala弄ってるの？
+              
+              ## A.最近某所で Playframework 使ってます
+            </script>
+          </section>
+          <section data-markdown>
+            <script type="text/template">
+              ## 後会社が ScalaActiveRecoard とか出してます
+              
+              開発にはノータッチですけど、、、(;´∀｀)
+            </script>
+          </section>
+        </section>
+				<section data-markdown>
+          <script type="text/template">
+            ## 本題
+          </script>
+        </section>
+				<section data-markdown>
+          <script type="text/template">
+            ## Akka が広まらない！？
+          </script>
+        </section>
+        <section>
+          <section data-markdown>
+            <script type="text/template">
+              ## 今年あったScalaConference2013(3月)
+            </script>
+          </section>
+          <section data-markdown>
+            <script type="text/template">
+              ## 「Scaling Software with Akka」
+              
+              Jonas Bonér 氏の講演で、Akkaでの講演があり、「殆ど全てのカンファレンス参加者」がこの講演に殺到しました。
+
+              人気ですか？
+
+              人気だと思いますよね？
+            </script>
+          </section>
+        </section>
+        <section>
+          <section data-markdown>
+            <script type="text/template">
+              ## でも...
+            </script>
+          </section>
+          <section>
+            <p><img src="./1.png" /></p>
+            <p>比較</p>
+            <p><img src="./2.png" /></p>
+          </section>
+          <section data-markdown>
+            <script type="text/template">
+              ## 記事が少ない、、、
+            </script>
+          </section>
+        </section>
+        <section>
+          <section data-markdown>
+            <script type="text/template">
+              ## 何が問題なのか？
+            </script>
+          </section>
+          <section data-markdown>
+            <script type="text/template">
+              ## 日本語の入門が無いのがネックなのでは？(9/20 23時現在)
+            </script>
+          </section>
+          <section data-markdown>
+            <script type="text/template">
+              ## でも
+            </script>
+          </section>
+          <section data-markdown>
+            <script type="text/template">
+              ## あの膨大な量のドキュメントは訳せません(;´･_･)
+            </script>
+          </section>
+        </section>
+        
+        <section data-markdown>
+          <script type="text/template">
+            ## とりあえず使い方を紹介してみます
+          </script>
+        </section>
+        
+        <section>
+          <section data-markdown>
+            <script type="text/template">
+              ## Install(1)
+              
+              Jar を拾っても良いのですが、公式によれば、「Typesafe Activator というツールがベストだ！」とおっしゃるのでDLします。
+              
+              http://doc.akka.io/docs/akka/2.2.1/intro/getting-started.html
+              
+              http://typesafe.com/activator
+            </script>
+          </section>
+          <section data-markdown>
+            <script type="text/template">
+              ## Install(2)
+
+              ダウンロードしたら適当なディレクトリに解凍して終了です。
+            </script>
+          </section>
+        </section>
+        
+        <section>
+          <section data-markdown>
+            <script type="text/template">
+              ## プロジェクト作成(1)
+
+              activator.bat ダブルクリックすると、おもむろにサーバとブラウザが立ち上がります。
+              
+              ウィザード形式なので親切設計ですね。
+            </script>
+          </section>
+          <section data-markdown>
+            <script type="text/template">
+              ## プロジェクト作成(2)
+
+              ウィザードから、Akka のサンプルアプリケーションを選択し、実行していきます。
+            </script>
+          </section>
+          <section data-markdown>
+            <script type="text/template">
+              ## プロジェクト作成(3)
+
+              最後にIDEを選択すると完了です。
+            </script>
+          </section>
+        </section>
+        
+        <section>
+          <section data-markdown>
+            <script type="text/template">
+              ## サンプルプロジェクトを弄る(1)
+
+              まずは、何が起きるのかを正しく確認するために、生成された Creeter に　akka.actor.ActorLogging を載せます。
+
+              これでログの掃き出しが出来るようになります。
+
+              ```
+                  import akka.actor._
+                  class Greeter extends Actor with ActorLogging { ...
+              ```
+            </script>
+          </section>
+          <section data-markdown>
+            <script type="text/template">
+              ## サンプルプロジェクトを弄る(2)
+
+              もう一つ話を分かりやすくするために、Actor は送られたメッセージをログに吐き出すだけにしてしまいます。
+
+              ```
+                  import akka.actor._
+
+                  case class WhoToGreet(who: String)
+
+                  class Greeter extends Actor with ActorLogging {
+                    def receive = {
+                      case WhoToGreet(who) => this.log.warning(s"hello, $who")
+                    }
+                  }
+
+                  object HelloAkkaScala extends App {
+                    val system = ActorSystem("helloakka")
+                    val greeter = system.actorOf(Props[Greeter], "greeter")
+
+                    List(
+                      "C", "C++", "C#", "D", "Delphi", "ObjectivePascal", "Java",
+                      "ActionScript3", "JavaScript", "PHP", "Python", "Ruby", "Haskell",
+                      "GO", "Lua", "VBScript", "Smalltalk", "ObjectiveC", "ShellScript", "F#", "Scala"
+                    ).par.foreach(name => greeter.tell(WhoToGreet(name), ActorRef.noSender))
+                  }
+              ```
+            </script>
+          </section>
+          <section data-markdown>
+            <script type="text/template">
+              ## サンプルプロジェクトを弄る(3)
+
+              最後に設定ファイルを外部から読み込みます。
+
+              ```
+                  import akka.routing.FromConfig
+                  import com.typesafe.config.ConfigFactory
+                  val config = ConfigFactory.load
+                  val system = ActorSystem("helloakka", config)
+                  val greeter = system.actorOf(Props[Greeter].withRouter(FromConfig()), "greeter")
+              ```
+
+              設定ファイルは root/src/main/resources/application.conf を配置して
+
+              ```
+                  akka.actor.deployment {
+                    /greeter {
+                      router = round-robin
+                      nr-of-instances = 5
+                    }
+                  }
+              ```
+
+              と設定します。
+
+              これで実験の準備は終了です。
+            </script>
+          </section>
+        </section>
+        
+        <section>
+          <section data-markdown>
+            <script type="text/template">
+              ## Router の実験(RaundRobinRouter)
+
+              実際に設定を弄りながら、どういった挙動となるのかを確認してみましょう。
+
+              Router は Actor のインスタンス数と、メッセージの割り当て方を指定します。
+
+              ```
+                  akka.actor.deployment {
+                    /greeter {
+                      router = round-robin
+                      nr-of-instances = 3
+                    }
+                  }
+              ```
+
+              これは 3 インスタンスに順繰りにメッセージを割り当てるやり方です。
+            </script>
+          </section>
+          <section data-markdown>
+            <script type="text/template">
+              ## Router の実験
+
+              他に使えるものは、
+
+              * Random(random)
+              * SmallestMailboxRouter(smallest-mailbox)
+              * BroadcastRouter(broadcast)
+              * ScatterGatherFirstCompletedRouter(scatter-gather, within プロパティあり)
+              * ConsistentHashingRouter(consistent-hashing, virtual-nodes-factorプロパティあり)
+
+              がデフォルトで用意されています。
+
+              SmallestMailboxRouter だけ試して、次の内容行きましょう。
+
+              時間があまったら残りもやるという事で。
+            </script>
+          </section>
+          <section data-markdown>
+            <script type="text/template">
+              ## Router の実験(SmallestMailboxRouter)
+
+              ```
+                  akka.actor.deployment {
+                    /greeter {
+                      router = smallest-mailbox
+                      nr-of-instances = 3
+                    }
+                  }
+              ```
+
+              メールボックスのキュー内のサイズが少ないものに割り当てていきます。
+            </script>
+          </section>
+        </section>
+        
+        
+        <section data-markdown>
+          <script type="text/template">
+            ## Dispatcher
+
+            `[helloakka-akka.actor.default-dispatcher-3]` の表記が何度か出ていると思います。
+
+            これは、スレッドリソース制御や、メールボックス等の割り当てを制御する箇所です。
+
+            実験前の編集。
+
+            `val greeter = system.actorOf(Props[Greeter], "greeter") // .withRouter(FromConfig)`
+
+            withRouter を入れたままだとエラーが出てしまうので外しておきます。
+          </script>
+        </section>
+        <section>
+          <section data-markdown>
+            <script type="text/template">
+              ## Dispatcherの実験
+
+              設定ファイルに下記のような書き込みを入れます。
+
+              ```
+                  sample-dispatcher {
+                    type = Dispatcher
+                    executor = "thread-pool-executor"
+                    thread-pool-executor {
+                      core-pool-size-min = 2
+                      core-pool-size-factor = 2.0
+                      core-pool-size-max = 10
+                    }
+                    throughput = 100
+                  }
+                  
+                  akka.actor.deployment {
+                    /greeter {
+                      # router = round-robin
+                      # nr-of-instances = 5
+                      dispatcher = sample-dispatcher
+                    }
+                  }
+              ```
+
+              実行すると dispatcher が書き換わっているのが分かります。
+            </script>
+          </section>
+          <section data-markdown>
+            <script type="text/template">
+              ## Dispatcher の設定
+
+              Dispatcher は type, executor の設定をベースに細かく分岐していきます。
+
+              まずは executer からで、これはスレッドリソース自体の管理方法です。
+
+              基本的に二種類、thread-pool-executor, fork-join-executor を選びます。これは type によって選べるものが固定になることがあります。
+
+              面倒な type を説明します。
+            </script>
+          </section>
+          <section data-markdown>
+            <script type="text/template">
+              ## Dispatcher の種類(1)
+
+              * Dispatcher
+                * デフォルトの設定
+                * スレッド共有性：特に制限なし
+                * Mailbox:アクターごとに作成
+              * PinnedDispatcher
+                * アクターごとに専用のスレッドを立てて走らせる設定
+                * スレッド共有性：不可
+                * Mailbox:アクターごとに作成
+            </script>
+          </section>
+          <section data-markdown>
+            <script type="text/template">
+              ## Dispatcher の種類(2)
+
+              * BalancingDispatcher
+                * 負荷のかかってるアクターに優先してスレッドを与える方法
+                * スレッド共有性：特定型のアクター内でのみスレッドリソースを共有
+                * Mailbox:特定種類のアクターごとに作成
+              * CallingThreadDispatcher
+                * 呼び出してるスレッド上でそのまま処理を行う方式。実質的にコールバックと同様。
+                * スレッド共有性：指定なし
+                * Mailboxes:その場で実行するので実質意味なし
+                * テスト用途などで使用
+            </script>
+          </section>
+        </section>
+        
+        <section data-markdown>
+          <script type="text/template">
+            ## 他に
+
+            一応リモートアクター等といった機能もあり、2.2 から正式に格上げされました。
+
+            クラスタ化や、単にリモートに配置することもできますし、通信様式も TCP/UDP 以外にも MQ を使うとか色々出来るようになってます。
+
+            とりあえずローカル実行で、Twitter のリアルタイム単語集計を行うツールを自社の HP で公開してます。
+
+            バージョンは 2.0 とかそのあたりだった気がしますが、気になる方は参照ください。
+          </script>
+        </section>
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+					// { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+					// { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
