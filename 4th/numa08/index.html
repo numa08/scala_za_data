@@ -1,0 +1,104 @@
+<html>
+      <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+        <title>scalaza_4th</title>
+        <link type="text/css" rel="stylesheet" href="assets/css/show.css" />
+        <link type="text/css" rel="stylesheet" href="assets/css/prettify.css" />
+        <script type="text/javascript" src="assets/js/jquery.min.js"></script>
+        <script type="text/javascript" src="assets/js/show.js"></script>
+        <script type="text/javascript" src="assets/js/prettify/prettify.js"></script>
+        <script type="text/javascript" src="assets/js/prettify/lang-apollo.js"></script><script type="text/javascript" src="assets/js/prettify/lang-css.js"></script><script type="text/javascript" src="assets/js/prettify/lang-hs.js"></script><script type="text/javascript" src="assets/js/prettify/lang-lisp.js"></script><script type="text/javascript" src="assets/js/prettify/lang-lua.js"></script><script type="text/javascript" src="assets/js/prettify/lang-ml.js"></script><script type="text/javascript" src="assets/js/prettify/lang-proto.js"></script><script type="text/javascript" src="assets/js/prettify/lang-scala.js"></script><script type="text/javascript" src="assets/js/prettify/lang-sql.js"></script><script type="text/javascript" src="assets/js/prettify/lang-sql.js"></script><script type="text/javascript" src="assets/js/prettify/lang-vb.js"></script><script type="text/javascript" src="assets/js/prettify/lang-vhdl.js"></script><script type="text/javascript" src="assets/js/prettify/lang-wiki.js"></script><script type="text/javascript" src="assets/js/prettify/lang-yaml.js"></script><link type="text/css" rel="stylesheet" href="css/custom.css?1386594295299" />
+      <script type="text/javascript"><!--
+        window.onload=function() { prettyPrint(); };
+      --></script>
+      </head>
+      <body>
+        <div id="slides">
+          <div id="reel">
+            <div class="content" id="slide-0"><div class="container">
+                  <h2 id="Scala4Android">Scala4Android</h2><p><a  href="https://twitter.com/numa08">@numa08</a>
+</p>
+                </div>
+      </div><div class="content" id="slide-1"><div class="container">
+                  <h2 id="Agenda">Agenda</h2><ul><li>ScalaでAndroidアプリを作りたい
+</li><li>AndroidでのScala事情
+</li><li>Eclipse(ScalaIDE)を使う方法
+</li><li>antを使う方法
+</li><li>まとめ:AndroidにおけるScala
+</li></ul>
+                </div>
+      </div><div class="content" id="slide-2"><div class="container">
+                  <h2 id="Scala%E3%81%A7Android%E3%82%A2%E3%83%97%E3%83%AA%E3%82%92%E4%BD%9C%E3%82%8A%E3%81%9F%E3%81%84">ScalaでAndroidアプリを作りたい</h2><ul><li>Androidも（一応）Java
+</li><li>まぁScalaも動くっしょ
+</li><li>昔のScalaってAndroidのサポートしてなかった？
+</li></ul>
+                </div>
+      </div><div class="content" id="slide-3"><div class="container">
+                  <h2 id="Android%E3%81%A7%E3%81%AEScala%E4%BA%8B%E6%83%85">AndroidでのScala事情</h2><ul><li>わりと色々と提供される
+</li><li>sbtのプラグイン
+</li><li>g8でやるやつ
+</li><li>IntelliJのやつ
+</li><li>AndroidSDKのアップデートについていけていないことも
+</li></ul>
+                </div>
+      </div><div class="content" id="slide-4"><div class="container">
+                  <h2 id="Android%E3%81%A7%E3%81%AEScala%E4%BA%8B%E6%83%85">AndroidでのScala事情</h2><h3 id=""><a  href="https://github.com/pfn/android-sdk-plugin">pfn/android-sdk-plugin</a></h3><p>   sbtのプラグイン。Androidのプロジェクトをsbt用に置き換えてビルドする。勝手にProguardが走るのでJava6以下の環境じゃないと動かないよ。
+</p><h3 id=""><a  href="https://github.com/jberkel/android-plugin">jberkel/android-plugin</a></h3><p>   sbtのプラグイン。割りとScalaでAndroidやるって言うとこれだったイメージ。更新が結構止まってるような。
+</p><h3 id=""><a  href="https://github.com/pocorall/scaloid">pocorall/scaloid</a></h3><p>   ScalaでAndroidのコードを書くためのライブラリ。後述の型に関するいくつかの問題をいいかんじにラップしてくれるけど、sbtやmaven前提ってどうなの。
+</p>
+                </div>
+      </div><div class="content" id="slide-5"><div class="container">
+                  <h2 id="Android%E3%81%A7%E3%81%AEScala%E4%BA%8B%E6%83%85">AndroidでのScala事情</h2><ul><li>AndroidSDKのバージョンアップ頻度はわりと高い
+</li><li>ツールのパスが変わったり今までのツールが利用不可になるとかよくある
+</li><li>各種OSSプロジェクトやブログ記事などがついていってない
+</li><li>（それなりに）SDKのバージョンアップに耐える方法が必要？
+</li><li>とりあえずJavaをScalaに書き換えるだけのところから始めるか・・・
+</li></ul>
+                </div>
+      </div><div class="content" id="slide-6"><div class="container">
+                  <h2 id="ScalaIDE%E3%82%92%E4%BD%BF%E3%81%86%E6%96%B9%E6%B3%95">ScalaIDEを使う方法</h2><p>ScalaIDE便利だよね。エディタはvimだけど、importの補完とか文法ミス見つけるのにマジ便利。
+</p><p><code>.project</code>と<code>.classpath</code>をいじるだけでわりと簡単にできるよ。
+</p>
+                </div>
+      </div><div class="content" id="slide-7"><div class="container">
+                  <h2 id="ScalaIDE%E3%82%92%E4%BD%BF%E3%81%86%E6%96%B9%E6%B3%95">ScalaIDEを使う方法</h2><p><a  href="https://github.com/numa08/Scala_Android/commit/c24712fa5d2dceaadb183342dc4a8e46c4bcef8f">こんな感じでいじるよ</a>
+</p><p>scala-libraryを参照に追加して完了。ビルド、実行ができます。
+</p>
+                </div>
+      </div><div class="content" id="slide-8"><div class="container">
+                  <h2 id="ant%E3%82%92%E4%BD%BF%E3%81%86%E6%96%B9%E6%B3%95">antを使う方法</h2><p><code>android update project</code>をした後に、<code>custon_rule.xml</code>を作成し編集をする。
+</p><p>編集の内容は<a  href="https://github.com/numa08/Scala_Android/blob/master/apps/ScalaAndroid/custom_rules.xml">こんな感じ</a>
+</p><p><code>ant scala-build debug</code>とかでいけると思ってた・・・
+</p><p>たぶん標準のbuild.xmlに手を加えないとだめ←ﾒﾝﾄﾞ</p>
+                </div>
+      </div><div class="content" id="slide-9"><div class="container">
+                  <h2 id="%E3%81%BE%E3%81%A8%E3%82%81">まとめ</h2>
+                </div>
+      </div><div class="content" id="slide-10"><div class="container">
+                  <h2 id="%E3%81%BE%E3%81%A8%E3%82%81">まとめ</h2><h3 id="%E8%87%B4%E5%91%BD%E7%9A%84%E3%81%AA%E5%95%8F%E9%A1%8C%E3%81%8C%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99">致命的な問題があります</h3><ul><li>Androidはメソッドの上限が2^16(65536)個
+</li><li>超えると実行できない
+</li><li>Scala-libraryとsupport-libraryで上限突破・・・
+</li><li>Scala-libraryのメソッド数いくつだよ・・・
+</li></ul>
+                </div>
+      </div><div class="content" id="slide-11"><div class="container">
+                  <h2 id="%E3%81%BE%E3%81%A8%E3%82%81">まとめ</h2><h3 id="%E6%B0%97%E6%8C%81%E3%81%A1%E6%82%AA%E3%81%84%E3%82%B3%E3%83%BC%E3%83%89%E3%81%8C%E7%94%9F%E3%81%BE%E3%82%8C%E3%81%BE%E3%81%99">気持ち悪いコードが生まれます</h3><ul><li>Androidはキャストをわりと使う
+</li><li>Scalaでキャスト・・・？
+</li></ul>
+                </div>
+      </div><div class="content" id="slide-12"><div class="container">
+                  <h2 id="%E3%81%BE%E3%81%A8%E3%82%81">まとめ</h2><h3 id="findViewById%E3%81%A8%E3%81%8B">findViewByIdとか</h3><pre><code class="prettyprint lang-scala">Option(findViewById(R.id.textview)) match {
+  case Some(t:TextView) =&gt; t.setText(&quot;hello&quot;)
+  case _ =&gt; {/*do something*/}
+  }
+</code></pre>
+                </div>
+      </div><div class="content" id="slide-13"><div class="container">
+                  <h2 id="%E3%81%BE%E3%81%A8%E3%82%81">まとめ</h2><p>ScalaでAndroidをやるには、我々はまだ、早すぎたのかもしれない・・・</p>
+                </div>
+      </div>
+          </div>
+        </div>
+        <script type="text/javascript" src="js/custom.js?1386594295884"></script>
+      </body>
+    </html>

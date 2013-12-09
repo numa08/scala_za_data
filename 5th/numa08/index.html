@@ -1,0 +1,113 @@
+<html>
+      <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+        <title>scalaza_5th</title>
+        <link type="text/css" rel="stylesheet" href="assets/css/show.css" />
+        <link type="text/css" rel="stylesheet" href="assets/css/prettify.css" />
+        <script type="text/javascript" src="assets/js/jquery.min.js"></script>
+        <script type="text/javascript" src="assets/js/show.js"></script>
+        <script type="text/javascript" src="assets/js/prettify/prettify.js"></script>
+        <script type="text/javascript" src="assets/js/prettify/lang-apollo.js"></script><script type="text/javascript" src="assets/js/prettify/lang-css.js"></script><script type="text/javascript" src="assets/js/prettify/lang-hs.js"></script><script type="text/javascript" src="assets/js/prettify/lang-lisp.js"></script><script type="text/javascript" src="assets/js/prettify/lang-lua.js"></script><script type="text/javascript" src="assets/js/prettify/lang-ml.js"></script><script type="text/javascript" src="assets/js/prettify/lang-proto.js"></script><script type="text/javascript" src="assets/js/prettify/lang-scala.js"></script><script type="text/javascript" src="assets/js/prettify/lang-sql.js"></script><script type="text/javascript" src="assets/js/prettify/lang-sql.js"></script><script type="text/javascript" src="assets/js/prettify/lang-vb.js"></script><script type="text/javascript" src="assets/js/prettify/lang-vhdl.js"></script><script type="text/javascript" src="assets/js/prettify/lang-wiki.js"></script><script type="text/javascript" src="assets/js/prettify/lang-yaml.js"></script><link type="text/css" rel="stylesheet" href="css/custom.css?1386594357983" />
+      <script type="text/javascript"><!--
+        window.onload=function() { prettyPrint(); };
+      --></script>
+      </head>
+      <body>
+        <div id="slides">
+          <div id="reel">
+            <div class="content" id="slide-0"><div class="container">
+                  <h1 id="Jenkis%E3%81%A8PlayFramework">JenkisとPlayFramework</h1><br>
+<br>
+<p><a  href="https://twitter.com/numa08">@numa08</a>
+</p>
+                </div>
+      </div><div class="content" id="slide-1"><div class="container">
+                  <p><a  href="htttp://numa08.net">http://numa08.net</a>
+<br>
+<br>
+</p><p>Playframeworkで動いてます
+</p>
+                </div>
+      </div><div class="content" id="slide-2"><div class="container">
+                  <p>更新 →　Githubにpush → 自動デプロイ
+<br>
+<br>
+やりたいよね！！
+</p>
+                </div>
+      </div><div class="content" id="slide-3"><div class="container">
+                  <h1 id="%E6%88%A6%E7%95%A5">戦略</h1><ul><li>Jenkinsでビルド（play clean stage)
+</li><li>Chefとかでデプロイ
+</li></ul>
+                </div>
+      </div><div class="content" id="slide-4"><div class="container">
+                  <h1 id="%E3%81%95%E3%81%A3%E3%81%9D%E3%81%8F%E8%A9%B0%E3%81%BE%E3%81%A3%E3%81%9F">さっそく詰まった</h1><p>Jenkinsでビルドする際になんかエラーが出る！！
+<br>
+<br>
+</p><pre><code class="">java.io.IOException: No such file or directory
+at java.io.UnixFileSystem.createFileExclusively(Native Method)
+at java.io.File.createNewFile(File.java:900)
+at xsbt.boot.Locks$.apply0(Locks.scala:34)
+at xsbt.boot.Locks$.apply(Locks.scala:27)
+at scala.collection.mutable.FlatHashTable$class.$init$(Proxy.scala:32)
+</code></pre>
+                </div>
+      </div><div class="content" id="slide-5"><div class="container">
+                  <h1 id="playframework%E3%81%AE%E6%B3%A8%E6%84%8F%E7%82%B9">playframeworkの注意点</h1><p><code>so don’t install to /opt, /usr/local or anywhere else you’d need special permission to write to.)</code>
+<br>
+<br>
+</p><p>「書き込み権限が必要な場所にインストールするなよ！！」
+</p>
+                </div>
+      </div><div class="content" id="slide-6"><div class="container">
+                  <h1 id="%E5%AF%BE%E5%BF%9C%E7%AD%96%E3%81%AE%E6%A4%9C%E8%A8%8E">対応策の検討</h1><ul><li><p>$JENINS_HOME(/var/lib/jenkins)にインストールする
+</p><ul><li>管理とか面倒くさくなりそう感ある
+</li></ul></li><li><p>/usr/local/etc/playの権限を変える
+</p><ul><li>スマートさが足りない
+</li></ul></li><li><p>プラグインを作って管理する
+</p><ul><li>これか？
+</li></ul></li></ul>
+                </div>
+      </div><div class="content" id="slide-7"><div class="container">
+                  <h1 id="jenkins%E3%81%AE%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3%E4%BA%8B%E6%83%85">jenkinsのプラグイン事情</h1><ul><li><p>maven,jdk,antとかの場合
+</p><ul><li>インストールとかを自動でやってくれる
+</li><li>プロジェクト毎に利用するバージョンを変更できる
+</li></ul></li></ul><p><br>
+<br>
+Playでも同じことできたら便利やね
+</p>
+                </div>
+      </div><div class="content" id="slide-8"><div class="container">
+                  <h1 id="%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3%E3%81%AE%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%82%92%E4%BD%9C%E3%82%8B%E3%82%88">プラグインのプロジェクトを作るよ</h1><ul><li><a  href="http://plugin-generator.jenkins-ci.org/">Plugin Skeleton Generator</a>
+</li></ul><h1 id="Eclipse%E3%81%AE%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%81%AB%E3%81%99%E3%82%8B">Eclipseのプロジェクトにする</h1><p><code>mvn -DdownloadSources=true -DdownloadJavadocs=true -DoutputDirectory=target/eclipse-classes eclipse:eclipse</code>
+</p><h1 id="%E3%83%87%E3%83%90%E3%83%83%E3%82%B0">デバッグ</h1><p><code>mvn hpi:run</code>
+</p>
+                </div>
+      </div><div class="content" id="slide-9"><div class="container">
+                  <p><img alt=""  src="https://pbs.twimg.com/media/BP7wCzcCIAAXiJg.png" />
+</p>
+                </div>
+      </div><div class="content" id="slide-10"><div class="container">
+                  <h1 id="%E3%82%B3%E3%83%BC%E3%83%89%E3%81%AF%E8%AA%AD%E3%81%BF%E3%81%BE%E3%81%97%E3%81%9F%E3%83%BB%E3%83%BB%E3%83%BB">コードは読みました・・・</h1><ul><li><a  href="https://github.com/jenkinsci/ant-plugin">ant-plugin</a>
+</li><li><a  href="https://github.com/jenkinsci/jenkins/blob/master/core/src/main/java/hudson/tasks/Maven.java">jenkins/Maven.java</a>
+</li><li><a  href="https://github.com/jenkinsci/jenkins/blob/master/core/src/main/java/hudson/tools/JDKInstaller.java">jenkins/JDKInstaller.java</a>
+</li></ul>
+                </div>
+      </div><div class="content" id="slide-11"><div class="container">
+                  <h1 id="%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3%E3%81%AE%E8%A8%AD%E8%A8%88">プラグインの設計</h1><ul><li><p>提供されているクラスを継承していくらしい
+</p><ul><li><a  href="https://wiki.jenkins-ci.org/display/JENKINS/Extension+points">Extension points</a>
+</li><li>ビルドタスク : hadson.task.Builder
+</li><li>ツールのインストール : hudson.tools.ToolInstallation
+</li><li>インストーラー : hudson.tools.ToolInstaller
+</li></ul></li><li><p>設定項目の定義は<code>jelly</code>で書く
+</p><ul><li><a  href="https://wiki.jenkins-ci.org/display/JENKINS/Architecture">Architecture</a>
+</li><li><a  href="http://commons.apache.org/proper/commons-jelly/">jelly</a>
+</li><li>拡張XMLとか、辛み感やばい・・・
+</li></ul></li></ul>
+                </div>
+      </div>
+          </div>
+        </div>
+        <script type="text/javascript" src="js/custom.js?1386594358437"></script>
+      </body>
+    </html>
