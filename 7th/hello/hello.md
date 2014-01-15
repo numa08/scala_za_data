@@ -214,3 +214,95 @@ val config = Eval[urls](code)
 
 !SLIDE
 
+## [Scaloid](https://github.com/pocorall/scaloid)を使ってみた
+
+ - 2014年、最も気になるScalaのフレームワーク
+ - ScalaでAndroidアプリが作れる！！！！
+ - ScalaでAndroidアプリをかっこ良く作れる！！！
+
+!SLIDE
+
+## ScalaでAndroidアプリを作る！！
+
+ - [pfn/android-sdk-plugin](https://github.com/pfn/android-sdk-plugin)を発展させたものっぽい？
+ - エレガントにコードが書ける！！
+ - 過去のコードとの互換性もある！！
+ - 簡単に使える！！
+
+!SLIDE
+
+## ScalaでAndroidアプリを作る夢
+
+ - [Scala + sbt-android + IntelliJ で快適Androidアプリ開発 - パンダのメモ帳](http://shogogg.hatenablog.jp/entry/2013/12/06/000039)
+     - [jberkel/android-plugin](https://github.com/jberkel/android-plugin)
+ - [AndroidだってScalaしたい！！ - @numa08　猫耳帽子の女の子](http://numa08.hateblo.jp/entry/2013/09/22/100346)
+     - Eclipseに無理やりビルドさせる
+
+*苦行！！*
+
+!SLIDE
+
+## この辺りが苦行
+ 
+ - メソッド数の上限
+    - ビルドツールを使って、動的なライブラリのロードが必須
+ - レイアウトとコードの結びつけがキモい
+    - findViewByIdｪ・・・
+    - javaならキャストするけど、Scalaでキャスト？
+
+!SLIDE
+
+## この辺りが苦行
+
+ - ジェネリクスとか
+    - ScalaとJavaで差があるので、死ぬ・・・
+
+!SLIDE
+
+## 苦行を乗り越えた者がいた
+
+!SLIDE
+
+## [pfn/android-sdk-plugin](https://github.com/pfn/android-sdk-plugin)
+曰く
+
+ - [jberkel/android-plugin](https://github.com/jberkel/android-plugin)は複雑すぎる
+ - リソースとコードの結びつけがエレガント  
+ - `conscript`や`g8`なんていらない
+
+!SLIDE
+
+## [Scaloid](https://github.com/pocorall/scaloid)
+### [レイアウト周り](https://github.com/pocorall/scaloid#ui-layout-without-xml)
+
+ - Scalaで定義可能なレイアウト
+ - xmlでもレイアウト可
+     - あんまり推奨されてない？
+ - xml2Scalaなコンバータの提供
+
+!SLIDE
+
+### [ライフサイクル制御](https://github.com/pocorall/scaloid#lifecycle-management)
+
+ - ライフサイクルのコールバックで必要な処理も、簡潔に
+ - 例は`onResume`でregist,`onPause`でunregistが必須なBroadcastReceiver
+
+!SLIDE
+### [非同期処理関連](https://github.com/pocorall/scaloid/wiki/Basics#asynchronous-task-processing)
+
+ - scalaのspawnが使えるっぽい
+ - コールバックもお手軽に
+
+!SLIDE
+
+### その他
+ 
+ - AndroidのAPIをTraitでラップしている
+ - イミュータブルなオブジェクトの生成がしやすい
+ - *お作法*的な処理を簡略化している
+
+!SLIDE
+
+## [Scaloid](https://github.com/pocorall/scaloid)
+
+今年注目なんじゃないかなぁ？
