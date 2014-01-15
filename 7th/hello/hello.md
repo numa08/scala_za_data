@@ -110,6 +110,65 @@ $ sbt
 
 !SLIDE
 
+## implict-class使った
+
+ - 暗黙的な型変換をやってくれる
+ - 既存クラスにメソッドを追加する感じで
+ - 使いドコロを選びましょう
+
+!SLIDE
+
+## implict-class使った
+
+ - FileをOptiondeラップしてあげたかった
+
+
+```scala
+val file = new File("Halleyfile").asOpt
+file match {
+  case None => sys.error
+  case _ {/*do something*/}
+}
+```
+
+!SLIDE
+
+## implict-class使った
+
+
+```scala
+object FileWrapper {
+  implicit class FileWrapper(val file:File) extends AnyVal {
+    def asOpt : Option[File] = {
+      if(file.exists){
+              Some(file)
+             } else {
+              None
+       }
+    }
+  }
+}
+```
+
+
+!SLIDE
+
+## 詰まったところとか
+
+ - objectでラップせずに使った
+     - *class*なのでつい・・・
+     - implicit宣言されたものは、トップクラスにはできません
+
+!SLIDE
+
+## 詰まったところとか2
+
+ - importで詰まった
+     - implicitなメソッド、クラスは直接指定する必要がある
+     - *_*とかつける必要がある
+     - [こんな感じ](https://github.com/numa08/halley/blob/master/src/main/scala/Halley.scala#L7)
+!SLIDE
+
 ## DSLやった
 
  - ドメイン特化型言語
