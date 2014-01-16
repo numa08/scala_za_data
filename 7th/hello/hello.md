@@ -303,6 +303,14 @@ val config = Eval[urls](code)
 
 !SLIDE
 
+## 気になったところ
+ 
+ - テストの機能はないっぽい
+ - Play以上のDSL祭り
+ - 今までのAndroidとはかなり違うものに・・・
+
+!SLIDE
+
 ## [Scaloid](https://github.com/pocorall/scaloid)
 
 今年注目なんじゃないかなぁ？
