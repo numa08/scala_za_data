@@ -1,0 +1,244 @@
+<html>
+      <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+        <title>7th</title>
+        <link type="text/css" rel="stylesheet" href="assets/css/show.css" />
+        <link type="text/css" rel="stylesheet" href="assets/css/prettify.css" />
+        <script type="text/javascript" src="assets/js/jquery.min.js"></script>
+        <script type="text/javascript" src="assets/js/show.js"></script>
+        <script type="text/javascript" src="assets/js/prettify/prettify.js"></script>
+        <script type="text/javascript" src="assets/js/prettify/lang-apollo.js"></script><script type="text/javascript" src="assets/js/prettify/lang-css.js"></script><script type="text/javascript" src="assets/js/prettify/lang-hs.js"></script><script type="text/javascript" src="assets/js/prettify/lang-lisp.js"></script><script type="text/javascript" src="assets/js/prettify/lang-lua.js"></script><script type="text/javascript" src="assets/js/prettify/lang-ml.js"></script><script type="text/javascript" src="assets/js/prettify/lang-proto.js"></script><script type="text/javascript" src="assets/js/prettify/lang-scala.js"></script><script type="text/javascript" src="assets/js/prettify/lang-sql.js"></script><script type="text/javascript" src="assets/js/prettify/lang-sql.js"></script><script type="text/javascript" src="assets/js/prettify/lang-vb.js"></script><script type="text/javascript" src="assets/js/prettify/lang-vhdl.js"></script><script type="text/javascript" src="assets/js/prettify/lang-wiki.js"></script><script type="text/javascript" src="assets/js/prettify/lang-yaml.js"></script><link type="text/css" rel="stylesheet" href="css/custom.css?1390009940468" />
+      <script type="text/javascript"><!--
+        window.onload=function() { prettyPrint(); };
+      --></script>
+      </head>
+      <body>
+        <div id="slides">
+          <div id="reel">
+            <div class="content" id="slide-0"><div class="container">
+                  <h1 id="%23%E6%96%B0%E5%AE%BFScala%E5%BA%A7%E2%80%9914%E5%B9%B4+%EF%BC%91%E6%9C%88%E5%8F%B7">#新宿Scala座’14年 １月号</h1>
+                </div>
+      </div><div class="content" id="slide-1"><div class="container">
+                  <h2 id="%E8%87%AA%E5%B7%B1%E7%B4%B9%E4%BB%8B">自己紹介</h2><ul><li><a  href="http://numa08.net">@numa08</a>
+</li><li>仕事でScala使ってないマン
+</li><li>でじこちゃんかわいいガチ勢
+</li></ul>
+                </div>
+      </div><div class="content" id="slide-2"><div class="container">
+                  <p>今年も
+</p><p>よろしくお願い
+</p><p>しまScala
+</p>
+                </div>
+      </div><div class="content" id="slide-3"><div class="container">
+                  <h2 id="%E3%82%84%E3%81%A3%E3%81%9F%E3%81%93%E3%81%A8">やったこと</h2><ul><li><p><a  href="https://github.com/n8han/conscript">conscript</a>でツール作った
+</p><ul><li><code>implicit-class</code>を今更使った
+</li><li>DSLなことをやってみた
+</li></ul></li><li><a  href="https://github.com/pocorall/scaloid">scaloid</a>を使ってみた
+</li></ul>
+                </div>
+      </div><div class="content" id="slide-4"><div class="container">
+                  <h2 id="Conscript%E3%81%A8%E3%81%AF%EF%BC%9F">Conscriptとは？</h2><ul><li><a  href="http://mironal.github.io/slides/2013-10-19/scala/index.html#15">conscriptとは?</a>
+</li><li>conscript-pluginとしてツールを作れる！
+</li></ul>
+                </div>
+      </div><div class="content" id="slide-5"><div class="container">
+                  <h2 id="%E4%BD%9C%E3%81%A3%E3%81%9F%E3%82%82%E3%81%AE">作ったもの</h2><ul><li><a  href="https://github.com/numa08/halley">halley</a>
+</li><li>某海外のロダからエッチな画像を取ってくる物
+</li></ul>
+                </div>
+      </div><div class="content" id="slide-6"><div class="container">
+                  <h2 id="%E4%BD%9C%E3%81%A3%E3%81%9F%E5%8B%95%E6%A9%9F%E3%81%AF%E4%B8%8D%E7%B4%94%E3%81%AA%E3%81%AE%E3%81%A7%E7%9C%81%E7%95%A5">作った動機は不純なので省略</h2>
+                </div>
+      </div><div class="content" id="slide-7"><div class="container">
+                  <h2 id="%E4%BD%BF%E3%81%84%E6%96%B9">使い方</h2><pre><code class="prettyprint lang-scala">new urls {
+    add(&quot;URL(例：http://g.e-hentai.org/g/344872/6533c3fb52/&quot;)
+    add(&quot;複数記入することもできる&quot;)
+    // //から始まる行はコメントだ
+}
+</code></pre><ul><li>上記内容の<code>Halleyfile</code>を作る
+</li><li><code>hally</code>コマンドを実行
+</li><li>待つ
+</li></ul>
+                </div>
+      </div><div class="content" id="slide-8"><div class="container">
+                  <h2 id="conscript-plugin">conscript-plugin</h2><pre><code class="">$ g8 n8han/conscript
+# answer questions
+$ cd my-app
+$ sbt
+&gt; update
+</code></pre>
+                </div>
+      </div><div class="content" id="slide-9"><div class="container">
+                  <h2 id="%E3%81%AB%E8%89%B2%E3%80%85%E3%81%A8%E6%9B%B8%E3%81%8F"><code>src/main/conscript/[app]/launchconfig</code>に色々と書く</h2><pre><code class="prettyprint lang-bash">[app]
+  version: 0.1.0
+  org: net.numa08
+  name: halley
+  class: net.numa08.Halley #エントリポイント	
+[scala]
+  version: 2.10.3
+[repositories]
+  local #バイナリのあるリポジトリ
+</code></pre>
+                </div>
+      </div><div class="content" id="slide-10"><div class="container">
+                  <h2 id="%E6%B0%97%E3%81%AB%E3%81%AA%E3%81%A3%E3%81%9F%E3%81%A8%E3%81%93%E3%82%8D">気になったところ</h2><ul><li><p>テストコードはテンプレートに含まれない
+</p><ul><li>自分で付けたそう
+</li><li>g8テンプレート作ってもいいかも？
+</li></ul></li><li><p>Mavenリポジトリが必要
+</p><ul><li>Maven Centralとか
+</li><li>オレオレMaveリポジトリもOk？
+</li><li>ローカルでも可
+</li></ul></li></ul>
+                </div>
+      </div><div class="content" id="slide-11"><div class="container">
+                  <h2 id="implict-class%E4%BD%BF%E3%81%A3%E3%81%9F">implict-class使った</h2><ul><li>暗黙的な型変換をやってくれる
+</li><li>既存クラスにメソッドを追加する感じで
+</li><li>使いドコロを選びましょう
+</li></ul>
+                </div>
+      </div><div class="content" id="slide-12"><div class="container">
+                  <h2 id="implict-class%E4%BD%BF%E3%81%A3%E3%81%9F">implict-class使った</h2><ul><li>FileをOptiondeラップしてあげたかった
+</li></ul><pre><code class="prettyprint lang-scala">val file = new File(&quot;Halleyfile&quot;).asOpt
+file match {
+  case None =&gt; sys.error
+  case _ {/*do something*/}
+}
+</code></pre>
+                </div>
+      </div><div class="content" id="slide-13"><div class="container">
+                  <h2 id="implict-class%E4%BD%BF%E3%81%A3%E3%81%9F">implict-class使った</h2><pre><code class="prettyprint lang-scala">object FileWrapper {
+  implicit class FileWrapper(val file:File) extends AnyVal {
+    def asOpt : Option[File] = {
+      if(file.exists){
+              Some(file)
+             } else {
+              None
+       }
+    }
+  }
+}
+</code></pre>
+                </div>
+      </div><div class="content" id="slide-14"><div class="container">
+                  <h2 id="%E8%A9%B0%E3%81%BE%E3%81%A3%E3%81%9F%E3%81%A8%E3%81%93%E3%82%8D%E3%81%A8%E3%81%8B">詰まったところとか</h2><ul><li><p>objectでラップせずに使った
+</p><ul><li><em>class</em>なのでつい・・・
+</li><li>implicit宣言されたものは、トップクラスにはできません
+</li></ul></li></ul>
+                </div>
+      </div><div class="content" id="slide-15"><div class="container">
+                  <h2 id="%E8%A9%B0%E3%81%BE%E3%81%A3%E3%81%9F%E3%81%A8%E3%81%93%E3%82%8D%E3%81%A8%E3%81%8B2">詰まったところとか2</h2><ul><li><p>importで詰まった
+</p><ul><li>implicitなメソッド、クラスは直接指定する必要がある
+</li><li><em>_</em>とかつける必要がある
+</li><li><a  href="https://github.com/numa08/halley/blob/master/src/main/scala/Halley.scala#L7">こんな感じ</a></li></ul></li></ul>
+                </div>
+      </div><div class="content" id="slide-16"><div class="container">
+                  <h2 id="DSL%E3%82%84%E3%81%A3%E3%81%9F">DSLやった</h2><ul><li>ドメイン特化型言語
+</li><li>設定ファイル書くのに便利
+</li><li>そのままオブジェクトになってくれる
+</li></ul>
+                </div>
+      </div><div class="content" id="slide-17"><div class="container">
+                  <h2 id="DSL%E3%82%84%E3%81%A3%E3%81%9F">DSLやった</h2><ul><li><p><a  href="https://github.com/twitter/util">twitter/uti</a>
+</p><ul><li><a  href="https://github.com/twitter/util#eval">Eval</a>
+</li><li>Scalaファイルを実行して、値を返してくれる
+</li></ul></li></ul><pre><code class="prettyprint lang-scala">val code = Source.fromFile(file)
+	 .mkString(&quot;import net.numa08.urls\n&quot;, &quot;&quot;, &quot;&quot;)
+val config = Eval[urls](code)				 
+</code></pre>
+                </div>
+      </div><div class="content" id="slide-18"><div class="container">
+                  <h2 id="%E8%A9%B0%E3%81%BE%E3%81%A3%E3%81%9F%E3%81%A8%E3%81%93%E3%82%8D">詰まったところ</h2><blockquote class="twitter-tweet" data-cards="hidden" lang="ja"><p><a href="https://t.co/slFOKV6WZj">https://t.co/slFOKV6WZj</a> twiterのutil-eval、TwitterのMavenのバイナリはScala2.10で動かすと落ちるっぽいけど、Maven Centralの方のバイナリはうまく動いた</p>&mdash; numa (@numa08) <a href="https://twitter.com/numa08/statuses/419182634225246208">2014, 1月 3</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+                </div>
+      </div><div class="content" id="slide-19"><div class="container">
+                  <h2 id="sbt%E3%81%A8%E3%81%8B">sbtとか</h2><pre><code class="prettyprint lang-diff"> - resolvers ++= Seq(
+ - &quot;twiiter&quot; at &quot;http://maven.twttr.com/&quot;
+ - )
+ - libraryDependencies += &quot;com.twitter&quot; % &quot;util-eval&quot; % &quot;6.5.0&quot;
+ + libraryDependencies += &quot;com.twitter&quot; % &quot;util-eval_2.10&quot; % &quot;6.10.0&quot;
+</code></pre>
+                </div>
+      </div><div class="content" id="slide-20"><div class="container">
+                  <h2 id="%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%81%9F"><a  href="https://github.com/pocorall/scaloid">Scaloid</a>を使ってみた</h2><ul><li>2014年、最も気になるScalaのフレームワーク
+</li><li>ScalaでAndroidアプリが作れる！！！！
+</li><li>ScalaでAndroidアプリをかっこ良く作れる！！！
+</li></ul>
+                </div>
+      </div><div class="content" id="slide-21"><div class="container">
+                  <h2 id="Scala%E3%81%A7Android%E3%82%A2%E3%83%97%E3%83%AA%E3%82%92%E4%BD%9C%E3%82%8B%EF%BC%81%EF%BC%81">ScalaでAndroidアプリを作る！！</h2><ul><li><a  href="https://github.com/pfn/android-sdk-plugin">pfn/android-sdk-plugin</a>を発展させたものっぽい？
+</li><li>エレガントにコードが書ける！！
+</li><li>過去のコードとの互換性もある！！
+</li><li>簡単に使える！！
+</li></ul>
+                </div>
+      </div><div class="content" id="slide-22"><div class="container">
+                  <h2 id="Scala%E3%81%A7Android%E3%82%A2%E3%83%97%E3%83%AA%E3%82%92%E4%BD%9C%E3%82%8B%E5%A4%A2">ScalaでAndroidアプリを作る夢</h2><ul><li><p><a  href="http://shogogg.hatenablog.jp/entry/2013/12/06/000039">Scala + sbt-android + IntelliJ で快適Androidアプリ開発 - パンダのメモ帳</a>
+</p><ul><li><a  href="https://github.com/jberkel/android-plugin">jberkel/android-plugin</a>
+</li></ul></li><li><p><a  href="http://numa08.hateblo.jp/entry/2013/09/22/100346">AndroidだってScalaしたい！！ - @numa08　猫耳帽子の女の子</a>
+</p><ul><li>Eclipseに無理やりビルドさせる
+</li></ul></li></ul><p><em>苦行！！</em>
+</p>
+                </div>
+      </div><div class="content" id="slide-23"><div class="container">
+                  <h2 id="%E3%81%93%E3%81%AE%E8%BE%BA%E3%82%8A%E3%81%8C%E8%8B%A6%E8%A1%8C">この辺りが苦行</h2><ul><li><p>メソッド数の上限
+</p><ul><li>ビルドツールを使って、動的なライブラリのロードが必須
+</li></ul></li><li><p>レイアウトとコードの結びつけがキモい
+</p><ul><li>findViewByIdｪ・・・
+</li><li>javaならキャストするけど、Scalaでキャスト？
+</li></ul></li></ul>
+                </div>
+      </div><div class="content" id="slide-24"><div class="container">
+                  <h2 id="%E3%81%93%E3%81%AE%E8%BE%BA%E3%82%8A%E3%81%8C%E8%8B%A6%E8%A1%8C">この辺りが苦行</h2><ul><li><p>ジェネリクスとか
+</p><ul><li>ScalaとJavaで差があるので、死ぬ・・・
+</li></ul></li></ul>
+                </div>
+      </div><div class="content" id="slide-25"><div class="container">
+                  <h2 id="%E8%8B%A6%E8%A1%8C%E3%82%92%E4%B9%97%E3%82%8A%E8%B6%8A%E3%81%88%E3%81%9F%E8%80%85%E3%81%8C%E3%81%84%E3%81%9F">苦行を乗り越えた者がいた</h2>
+                </div>
+      </div><div class="content" id="slide-26"><div class="container">
+                  <h2 id=""><a  href="https://github.com/pfn/android-sdk-plugin">pfn/android-sdk-plugin</a></h2><p>曰く
+</p><ul><li><a  href="https://github.com/jberkel/android-plugin">jberkel/android-plugin</a>は複雑すぎる
+</li><li>リソースとコードの結びつけがエレガント  
+</li><li><code>conscript</code>や<code>g8</code>なんていらない
+</li></ul>
+                </div>
+      </div><div class="content" id="slide-27"><div class="container">
+                  <h2 id=""><a  href="https://github.com/pocorall/scaloid">Scaloid</a></h2><h3 id=""><a  href="https://github.com/pocorall/scaloid#ui-layout-without-xml">レイアウト周り</a></h3><ul><li>Scalaで定義可能なレイアウト
+</li><li><p>xmlでもレイアウト可
+</p><ul><li>あんまり推奨されてない？
+</li></ul></li><li>xml2Scalaなコンバータの提供
+</li></ul>
+                </div>
+      </div><div class="content" id="slide-28"><div class="container">
+                  <h3 id=""><a  href="https://github.com/pocorall/scaloid#lifecycle-management">ライフサイクル制御</a></h3><ul><li>ライフサイクルのコールバックで必要な処理も、簡潔に
+</li><li>例は<code>onResume</code>でregist,<code>onPause</code>でunregistが必須なBroadcastReceiver
+</li></ul>
+                </div>
+      </div><div class="content" id="slide-29"><div class="container">
+                  <h3 id=""><a  href="https://github.com/pocorall/scaloid/wiki/Basics#asynchronous-task-processing">非同期処理関連</a></h3><ul><li>scalaのspawnが使えるっぽい
+</li><li>コールバックもお手軽に
+</li></ul>
+                </div>
+      </div><div class="content" id="slide-30"><div class="container">
+                  <h3 id="%E3%81%9D%E3%81%AE%E4%BB%96">その他</h3><ul><li>AndroidのAPIをTraitでラップしている
+</li><li>イミュータブルなオブジェクトの生成がしやすい
+</li><li><em>お作法</em>的な処理を簡略化している
+</li></ul>
+                </div>
+      </div><div class="content" id="slide-31"><div class="container">
+                  <h2 id="%E6%B0%97%E3%81%AB%E3%81%AA%E3%81%A3%E3%81%9F%E3%81%A8%E3%81%93%E3%82%8D">気になったところ</h2><ul><li>テストの機能はないっぽい
+</li><li>Play以上のDSL祭り
+</li><li>今までのAndroidとはかなり違うものに・・・
+</li></ul>
+                </div>
+      </div><div class="content" id="slide-32"><div class="container">
+                  <h2 id=""><a  href="https://github.com/pocorall/scaloid">Scaloid</a></h2><p>今年注目なんじゃないかなぁ？</p>
+                </div>
+      </div>
+          </div>
+        </div>
+        <script type="text/javascript" src="js/custom.js?1390009941250"></script>
+      </body>
+    </html>
