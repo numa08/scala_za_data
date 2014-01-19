@@ -1,0 +1,558 @@
+<!doctype html>
+<html lang="ja">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>12月位から-</title>
+
+        <meta name="description" content="日記">
+        <meta name="author" content="吉井　温">
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <link rel="stylesheet" href="css/reveal.min.css">
+        <link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="lib/css/zenburn.css">
+
+        <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+        <script>
+            document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+        </script>
+
+        <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+
+        <div class="reveal">
+
+            <!-- Any section element inside of this container is displayed as a slide -->
+            <div class="slides">
+                <section>
+                    <h1>12月位から</h1>
+                    <h3>やばい殆どなにもしてない(;´Д｀)</h3>
+                    <p>
+                        <small>Created by 吉井 温＜白躑躅,しろつつじ＞</small>
+                    </p>
+                </section>
+                <section data-markdown>
+                  ### 誰？
+                  
+                  * 名前 : 吉井温(よしい　すなお)
+                  * HN : azalea, つつじー, 白躑躅
+                  * あだ名 : O, オタク(いろんな意味で)
+                  * HP : [謎言語使いの徒然](http://white-azalea.hatenablog.jp/)
+                  * 仕事 : [AdvanstSoftEngenerring](http://www.ase.co.jp/) のプログラマ
+                  * 趣味 : 実装技術/言語の勉強, アクション/FPS系ゲーム, ラノベ, アニメ
+                  
+                </section>
+                <section data-markdown>
+                    ### ダイジェスト
+
+                    * Playframework2.2.X の WS が気に入らなかったんだ
+                      * WS って？
+                      * 何がどう気に入らない？
+                    * じゃぁ作るしかないよね？
+                      * テストするのに便利なネタを共有
+                    * JavaのThymeleafテンプレートエンジンを Play で使う
+                </section>
+                <section>
+                    <section data-markdown>
+                        # Playframework2.2.X の WS が気に入らなかったんだ
+                    </section>
+                    <section data-markdown>
+                        ### WS って？
+                        
+                        Playframework にビルトインされてる WebClient 機能です。
+                        
+                        GET/SET/PUT/DELETE 等をこいつを経由で実行します。
+                        
+                        [公式](http://www.playframework.com/documentation/2.2.x/ScalaWS)
+
+                        ```
+                            import play.api.libs.json._
+                            val data = Json.obj(
+                              "key1" -> "value1",
+                              "key2" -> "value2"
+                            )
+                            val futureResponse: Future[Response] = WS.url(url).post(data)
+                        ```
+                    </section>
+                    <section data-markdown>
+                        # 何がどう気に入らない？
+                    </section>
+                    <section data-markdown>
+                        非同期にしか対応していないので、同期で欲しいときにめんどい(結果をクライアントに返さず、裏でバッチするとかの場合)
+                        
+                        ```
+                            import scala.concurrent._
+                            import scala.concurrent.duration._
+                            import ExecutionContext.Implicits.global
+                            val response = Await.result(
+                              WS.url(testPaymentGatewayURL).get()
+                              , 0 nanos)
+                        ```
+                    </section>
+                    <section data-markdown>
+                        ### multipart なPOST/PUTは[対応していない](https://groups.google.com/forum/#!searchin/play-framework/multipart$20WS/play-framework/MPtQlX-cWMQ/2BdN6RD_2yIJ)
+                    </section>
+                    <section data-markdown>
+                        無理やり multipart した図。たすけてえーりん
+                        
+                        ```
+                            "POST multipart" in new WithServer(app = fakeApplication, port = 6000) {
+                              import com.ning.http.client.{StringPart, FilePart}
+                              import javax.activation.MimetypesFileTypeMap
+                              import java.io.File
+
+                              val fileTypeMap = new MimetypesFileTypeMap()
+                              val sendFile    = new File("D:\\MyDocuments\\Pctures\\images\\3EDD9734-D004-424A-B5BC-9A125556A45B.jpg")
+                              val builder     = WS.client.preparePost("http://localhost:6000")
+
+                              builder.setHeader("Content-Type", "multipart/form-data")
+                              builder.addBodyPart(new StringPart("a", "test1"))
+                              builder.addBodyPart(new StringPart("b", "test1"))
+                              builder.addBodyPart(new FilePart("file1", sendFile, fileTypeMap.getContentType(sendFile), "UTF-8"))
+
+                              val response = builder.execute().get()
+
+                              println(response.getResponseBody)
+                              response.getStatusCode mustEqual OK
+                            }
+                        ```
+                    </section>
+                </section>
+                <section>
+                    <section data-markdown>
+                        # じゃぁ作るしかないよね？
+                    </section>
+                    <section data-markdown>
+                        ### ということで作った
+                        
+                        名前の通り CURL っぽく使えるようにしてみました。
+                        
+                        https://github.com/Sunao-Yoshii/scala_curl
+                        
+                        ```
+                            import bet.azalea.curl._
+                            import net.azalea.curl.HTTPHelper._
+                            implicit val config = HTTP.options
+                            
+                            val respond = HTTP.post("http://localhost:9100/multipart", Map[String, ContentBody](
+                                "param1" -> "value1".toField(),
+                                "param2" -> "value2".toField(),
+                                "file" -> file.toField()
+                            ))
+                        ```
+                    </section>
+                    <section data-markdown>
+                        ### テストするのに便利なネタを共有
+                        
+                        このライブラリのテストで、適当なPOST先を作るのはどうするのか？
+                        
+                        悩んでたら [ScalaActiverecoard](https://github.com/aselab/scala-activerecord) 作った [a-ono](https://twitter.com/akihiro_ono) さんが『scalatra 使えば良くない？』って教えてくれたのでやってみた。
+                    </section>
+                    <section data-markdown>
+                        ### build.sbt
+                        
+                        ```
+                            libraryDependencies ++= Seq(
+                              /* 略 */
+                              "org.scalatra" %% "scalatra" % "2.2.2" % "test",
+                              "org.specs2" %% "specs2" % "2.3.6" % "test",
+                              "org.scalatra" %% "scalatra-specs2" % "2.2.1" % "test"
+                            )
+                        ```
+                    </section>
+                    <section data-markdown>
+                        ### テスト用ヘルパ
+                        
+                        ```
+                            package helper
+
+                            import org.specs2.mutable.BeforeAfter
+                            import org.scalatra.test.EmbeddedJettyContainer
+                            import javax.servlet.http.HttpServlet
+
+                            abstract class WithServer(override val port: Int = 9100) extends BeforeAfter with EmbeddedJettyContainer {
+
+                              def servlet:Class[_ <: HttpServlet]
+
+                              val holder = addServlet(servlet, "/*")
+
+                              def before = {
+                                this.start()
+                              }
+
+                              def after = {
+                                this.stop()
+                              }
+                            }
+                        ```
+                    </section>
+                    <section data-markdown>
+                        ### サーバ定義
+                        
+                        ```
+                            import org.scalatra.ScalatraServlet
+                            import org.scalatra.servlet.{MultipartConfig, FileUploadSupport}
+
+                            class PostServerServlet extends ScalatraServlet with FileUploadSupport {
+                              post("/multipart") {
+                                val string = params.toSeq.sortBy(_._1).map(v => s"${v._1} : ${v._2}").mkString("\n")
+                                val file   = fileParams("file")
+                                string + "\n" + s"${file.getFieldName} : ${file.getName}"
+                              }
+                            }
+                        ```
+                    </section>
+                    <section data-markdown>
+                        ### テスト本体
+                        
+                        ```
+                            import java.io.File
+                            import helper.WithServer
+                            import org.scalatra.servlet.MultipartConfig
+                            import org.specs2.mutable.Specification
+                            import scala.io.Source
+                            class HTTPPostSpec extends Specification {
+                              sequential
+                              
+                              val file = new File(getClass.getResource("sample.txt").getPath())
+
+                              class SimpleMockServer extends WithServer {
+                                def servlet = classOf[PostServerServlet]
+
+                                holder.getRegistration.setMultipartConfig(
+                                  MultipartConfig(
+                                    maxFileSize = Some(3*1024*1024),
+                                    fileSizeThreshold = Some(1*1024*1024)
+                                  ).toMultipartConfigElement
+                                )
+                              }
+
+                              "post" should {
+                                "multipart" in new SimpleMockServer {
+                                  val respond = HTTP.post("http://localhost:9100/multipart", Map[String, ContentBody](
+                                    "param1" -> "value1".toField(),
+                                    "param2" -> "value2".toField(),
+                                    "file" -> file.toField()
+                                  ))
+                                  respond.status mustEqual 200
+                                  respond.bodyAsString() mustEqual "param1 : value1\nparam2 : value2\nfile : sample.txt"
+                                }
+                              }
+                            }
+                        ```
+                    </section>
+                </section>
+                <section>
+                    <section data-markdown>
+                        ### Javaの Thymeleaf テンプレートエンジンを Play で使う
+                    </section>
+                    <section data-markdown>
+                        ### Thymeleaf ってなによ？
+                        
+                        Java の servelet 向けテンプレートエンジン。Spring4 で正式連携が決まった。HTML/XML/XHTML/HTML5 専用。
+                        
+                        何がいいって、テンプレート構文が属性埋め込みなので、そのままブラウザで見た目を確認しながら作業できる点。
+                        
+                        ```
+                            &lt;table&gt;
+                              &lt;thead&gt;
+                                &lt;tr&gt;
+                                  &lt;th th:text="#{msgs.headers.name}"&gt;Name&lt;/th&gt;
+                                  &lt;th th:text="#{msgs.headers.price}"&gt;Price&lt;/th&gt;
+                                &lt;/tr&gt;
+                              &lt;/thead&gt;
+                              &lt;tbody&gt;
+                                &lt;tr th:each="prod : ${allProducts}"&gt;
+                                  &lt;td th:text="${prod.name}"&gt;Oranges&lt;/td&gt;
+                                  &lt;td th:text="${#numbers.formatDecimal(prod.price,1,2)}"&gt;0.99&lt;/td&gt;
+                                &lt;/tr&gt;
+                              &lt;/tbody&gt;
+                            &lt;/table&gt;
+                        ```
+                    </section>
+                    <section data-markdown>
+                        ### 普通の Thymeleaf の使い方①(Java)
+                        
+                        下記でテンプレートエンジンを初期化する(シングルトン推奨)
+                        
+                        ```
+                            ServletContextTemplateResolver templateResolver = new ServletContextTemplateResolver();
+                            templateResolver.setTemplateMode("XHTML");
+                            templateResolver.setPrefix("/WEB-INF/templates/");
+                            templateResolver.setSuffix(".html");
+                            templateResolver.setCacheTTLMs(3600000L);
+
+                            TemplateEngine templateEngine = new TemplateEngine();
+                            templateEngine.setTemplateResolver(templateResolver);
+                        ```
+                    </section>
+                    <section data-markdown>
+                        ### 普通の Thymeleaf の使い方②(Java)
+                        
+                        テンプレートを書く(/WEB-INF/templates/sample.html)
+                        
+                        ```
+                            &lt;!DOCTYPE html&gt;
+                            &lt;html&gt;
+                            &lt;head&gt;
+                                &lt;meta charset="UTF-8" /&gt;
+                                &lt;title&gt;Test&lt;/title&gt;
+                            &lt;/head&gt;
+                            &lt;body&gt;
+                              &lt;h1 th:text="${name}"&gt;Hello Sample&lt;/h1&gt;
+                            &lt;/body&gt;
+                            &lt;/html&gt;
+                        ```
+                    </section>
+                    <section data-markdown>
+                        ### 普通の Thymeleaf の使い方③(Java)
+                        
+                        使う
+                        
+                        ```
+                            Context ctx = new Context()；
+                            ctx.setVariables(variables)；
+                            String rendered = templateEngine.process("sample", ctx)；
+                        ```
+                    </section>
+                    <section data-markdown>
+                        ## 型安全じゃないけど、Playで使いたい！
+                    </section>
+                    <section data-markdown>
+                        ### じゃ、やろうか
+                        
+                        まずは build.sbt から
+                        
+                        ```
+                            libraryDependencies ++= Seq(
+                              "org.thymeleaf" % "thymeleaf" % "2.1.2.RELEASE",
+                              /* 略 */
+                            )   
+                        ```
+                    </section>
+                    <section data-markdown>
+                        ### Thymeleaf にテンプレートディレクトリを通知
+                        
+                        テンプレートのディレクトリ解決 ResourceResolver 。
+                        
+                        だって Servlet じゃないからね。
+                        
+                        ```
+                            package utils.template
+
+                            import org.thymeleaf.resourceresolver.{FileResourceResolver, IResourceResolver}
+                            import org.thymeleaf.TemplateProcessingParameters
+                            import java.io.InputStream
+
+                            class PlayThymeResourceResolver(viewPath: String) extends IResourceResolver {
+                              lazy val fileResourceResolver = new FileResourceResolver
+
+                              def getName: String = "PLAY_RESOURCE_RESOLVER"
+
+                              def getResourceAsStream(templateParameters: TemplateProcessingParameters, resourceName: String): InputStream = {
+                                this.fileResourceResolver.getResourceAsStream(templateParameters, s"$viewPath$resourceName")
+                              }
+                            } 
+                        ```
+                    </section>
+                    <section data-markdown>
+                        ### それをテンプレートエンジンに渡せるようにラップ
+                        
+                        名前解決(テンプレートのディレクトリ解決)には ResourceResolver を利用するので、設定。
+                        
+                        ```
+                            package utils.template
+
+                            import org.thymeleaf.templateresolver.TemplateResolver
+
+                            class PlayThymeTemplateResolver(val viewLookupPath: String) extends TemplateResolver {
+                              setResourceResolver(new PlayThymeResourceResolver(viewLookupPath))
+                            }
+                        ```
+                    </section>
+                    <section data-markdown>
+                        ### それをテンプレートエンジンに渡せるようにラップ
+                        
+                        名前解決(テンプレートのディレクトリ解決)には ResourceResolver を利用するので、設定。
+                        
+                        ```
+                            package utils.template
+
+                            import org.thymeleaf.templateresolver.TemplateResolver
+
+                            class PlayThymeTemplateResolver(val viewLookupPath: String) extends TemplateResolver {
+                              setResourceResolver(new PlayThymeResourceResolver(viewLookupPath))
+                            }
+                        ```
+                    </section>
+                    <section data-markdown>
+                        ### エンジンも手を加えます
+                        
+                        ```
+                            package utils.template
+
+                            import org.thymeleaf.{Arguments, TemplateEngine}
+                            import org.thymeleaf.messageresolver.{MessageResolution, AbstractMessageResolver}
+                            import play.api.i18n.{Lang, Messages}
+                            import org.thymeleaf.context.Context
+                            import scala.collection.JavaConversions._
+                            import java.util.Locale
+
+                            class PlayTemplateEngine extends TemplateEngine {
+                              setMessageResolver(new AbstractMessageResolver {
+                                def resolveMessage(p1: Arguments, p2: String, p3: Array[AnyRef]): MessageResolution = {
+                                  val locale = p1.getContext.getLocale
+                                  // ごめんここ未テスト
+                                  new MessageResolution(Messages(p2, p3)(Lang(locale.getLanguage)))
+                                }
+                              })
+
+                              def process(path:String, variables: Map[String, _], locale: Locale):String = {
+                                val ctx = new Context()
+                                ctx.setLocale(locale)
+                                ctx.setVariables(variables)
+                                process(path, ctx)
+                              }
+                            }
+                        ```
+                    </section>
+                    <section data-markdown>
+                        ### 初期化して
+                        
+                        ```
+                            package utils.template
+
+                            import play.api.Play
+                            import play.api.i18n.Lang
+                            import play.api.templates.Html
+
+                            object Template {
+                              lazy val templateEngine = {
+                                val config = Play.current.configuration
+                                val engine = new PlayTemplateEngine
+
+                                val path   = config.getString("thymeleaf.path").getOrElse("app/views/")
+                                val suffix = config.getString("thymeleaf.suffix").getOrElse(".html")
+                                val mode   = config.getString("thymeleaf.mode").getOrElse("HTML5")
+                                val ttl    = config.getLong("thymeleaf.ttl").getOrElse(60000L) // default 1minute
+
+                                val templateResolver = new PlayThymeTemplateResolver(path)
+                                templateResolver.setSuffix(suffix)
+                                templateResolver.setTemplateMode(mode)
+                                templateResolver.setCacheTTLMs(ttl)
+                                templateResolver.setCharacterEncoding("UTF-8")
+
+                                engine.setTemplateResolver(templateResolver)
+                                engine
+                              }
+
+                              def html(templatePath: String, values: Map[String, _])(implicit lang: Lang):Html = {
+                                Html(templateEngine.process(templatePath, values, lang.toLocale))
+                              }
+
+                              def plain(templatePath: String, values: Map[String, _])(implicit lang: Lang):String = {
+                                templateEngine.process(templatePath, values, lang.toLocale)
+                              }
+                            }
+                        ```
+                    </section>
+                    <section data-markdown>
+                        ### 使い勝手を調整して
+                        
+                        ```
+                            package utils
+                            import play.api.i18n.Lang
+                            import play.api.templates.Html
+
+                            package object template {
+                              implicit class TemplateString(templatePath: String) {
+
+                                def html(values: Map[String, _])(implicit lang: Lang):Html = Template.html(templatePath, values)
+
+                                def plain(values: Map[String, _])(implicit lang: Lang):String = Template.plain(templatePath, values)
+                              }
+                            }
+                        ```
+                    </section>
+                    <section data-markdown>
+                        ### Let's GO
+                        
+                        ```
+                            package controllers
+
+                            import play.api.mvc._
+                            import utils.template._
+
+                            object Application extends Controller {
+                              def sample = Action { implicit request =>
+                                Ok("sample".html(Map("name" -> "俺は型安全をやめるぞ！JOJO")))
+                              }
+                            }
+                        ```
+                    </section>
+                </section>
+                <section data-markdown>
+                  ## 最後に
+                  
+                  今月何の開発もしてねぇ(汗
+                  
+                  いつものようにいつものごとく、下記の設定で今回の資料とサンプルを配布してます。
+                  
+                  後で blog で公開するので、公開は勘弁してください(汗
+                  
+                  * SSID : WG-C10-7C1700
+                  * FileServer : 192.168.40.1
+                  * プレゼン : 2014_1_18.zip
+                  * サンプル : ThymeleafSample.zip
+                </section>
+            </div>
+
+        </div>
+
+        <script src="lib/js/head.min.js"></script>
+        <script src="js/reveal.min.js"></script>
+
+        <script>
+
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+
+                theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+                transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+                // Parallax scrolling
+                // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+                // parallaxBackgroundSize: '2100px 900px',
+
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                    { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                ]
+            });
+
+        </script>
+
+    </body>
+</html>
