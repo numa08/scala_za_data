@@ -1,0 +1,253 @@
+<html>
+      <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+        <title>8th</title>
+        <link type="text/css" rel="stylesheet" href="assets/css/show.css" />
+        <link type="text/css" rel="stylesheet" href="assets/css/prettify.css" />
+        <script type="text/javascript" src="assets/js/jquery.min.js"></script>
+        <script type="text/javascript" src="assets/js/show.js"></script>
+        <script type="text/javascript" src="assets/js/prettify/prettify.js"></script>
+        <script type="text/javascript" src="assets/js/prettify/lang-apollo.js"></script><script type="text/javascript" src="assets/js/prettify/lang-css.js"></script><script type="text/javascript" src="assets/js/prettify/lang-hs.js"></script><script type="text/javascript" src="assets/js/prettify/lang-lisp.js"></script><script type="text/javascript" src="assets/js/prettify/lang-lua.js"></script><script type="text/javascript" src="assets/js/prettify/lang-ml.js"></script><script type="text/javascript" src="assets/js/prettify/lang-proto.js"></script><script type="text/javascript" src="assets/js/prettify/lang-scala.js"></script><script type="text/javascript" src="assets/js/prettify/lang-sql.js"></script><script type="text/javascript" src="assets/js/prettify/lang-sql.js"></script><script type="text/javascript" src="assets/js/prettify/lang-vb.js"></script><script type="text/javascript" src="assets/js/prettify/lang-vhdl.js"></script><script type="text/javascript" src="assets/js/prettify/lang-wiki.js"></script><script type="text/javascript" src="assets/js/prettify/lang-yaml.js"></script><link type="text/css" rel="stylesheet" href="css/custom.css?1394727194526" />
+      <script type="text/javascript"><!--
+        window.onload=function() { prettyPrint(); };
+      --></script>
+      </head>
+      <body>
+        <div id="slides">
+          <div id="reel">
+            <div class="content" id="slide-0"><div class="container">
+                  <h1 id="%23%E6%96%B0%E5%AE%BFScala%E5%BA%A7%E2%80%9914%E5%B9%B4+%EF%BC%92%E6%9C%88%E5%8F%B7">#新宿Scala座’14年 ２月号</h1>
+                </div>
+      </div><div class="content" id="slide-1"><div class="container">
+                  <h2 id="%E8%87%AA%E5%B7%B1%E7%B4%B9%E4%BB%8B">自己紹介</h2><ul><li><a  href="http://numa08.net">@numa08</a>
+</li><li>人間git-svn
+</li><li>でじこちゃんかわいいガチ勢
+</li></ul>
+                </div>
+      </div><div class="content" id="slide-2"><div class="container">
+                  <p>それでも
+</p><p>人は
+</p><p>夢を見る
+</p>
+                </div>
+      </div><div class="content" id="slide-3"><div class="container">
+                  <h2 id="Scala+on+Android%E2%80%A6">Scala on Android…</h2>
+                </div>
+      </div><div class="content" id="slide-4"><div class="container">
+                  <h2 id="Scala+on+Android">Scala on Android</h2><p>これからScalaでAndroidアプリを作ろうかなぁと思っている
+</p><p>個人、法人のあなた達へ
+</p>
+                </div>
+      </div><div class="content" id="slide-5"><div class="container">
+                  <h2 id="Scala+on+Android">Scala on Android</h2><p>ぶっちゃけ、一長一短です
+</p>
+                </div>
+      </div><div class="content" id="slide-6"><div class="container">
+                  <h2 id="%E3%81%8A%E3%81%97%E3%81%AA%E3%81%8C%E3%81%8D">おしながき</h2><ul><li>scaloid
+</li><li>androidの罠達
+</li><li>まとめ
+</li></ul>
+                </div>
+      </div><div class="content" id="slide-7"><div class="container">
+                  <h2 id="Scala+%2B+sbt+%E3%81%A7Android%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF%EF%BC%9F">Scala + sbt でAndroidするには？</h2><ul><li>Scaloid
+</li><li>android-sbt-plugin
+</li></ul>
+                </div>
+      </div><div class="content" id="slide-8"><div class="container">
+                  <h2 id=""><a  href="https://github.com/pocorall/scaloid">Scaloid</a></h2><ul><li>AndroidAPIのScalaラッパーライブラリ
+</li><li>暗黙的型変換でコード量削減
+</li><li>謎のDSLでレイアウトを簡単記述
+</li></ul>
+                </div>
+      </div><div class="content" id="slide-9"><div class="container">
+                  <h2 id=""><a  href="https://github.com/pfn/android-sdk-plugin">android-sdk-plugin</a></h2><ul><li>sbtでAndroidをビルド
+</li><li>時代はsbt(gradleではなく)
+</li></ul>
+                </div>
+      </div><div class="content" id="slide-10"><div class="container">
+                  <h2 id="Scaloid%E3%81%AE%E6%A9%9F%E8%83%BD%E7%B4%B9%E4%BB%8B">Scaloidの機能紹介</h2><ul><li><p>SActivity
+</p><ul><li>Activityのラッパー(trait)
+</li><li>Activity is 画面
+</li><li>面倒なAPIに対する暗黙的型変換とかの提供
+</li></ul></li></ul>
+                </div>
+      </div><div class="content" id="slide-11"><div class="container">
+                  <h2 id="SActivity">SActivity</h2><p>xmlで定義したViewを取得
+</p><pre><code class="prettyprint lang-java">
+final TextView text = (TextView)findViewById(R.id.text_view);
+
+</code></pre>
+                </div>
+      </div><div class="content" id="slide-12"><div class="container">
+                  <h2 id="SActivity">SActivity</h2><pre><code class="prettyprint lang-scala">
+val textView = find(R.id.text_view)[TextView]
+
+
+</code></pre>
+                </div>
+      </div><div class="content" id="slide-13"><div class="container">
+                  <h2 id="DSL%E3%81%AB%E3%82%88%E3%82%8B%E3%83%AC%E3%82%A4%E3%82%A2%E3%82%A6%E3%83%88%E3%81%AE%E8%A8%98%E8%BF%B0">DSLによるレイアウトの記述</h2><p><a  href="https://github.com/pocorall/scaloid#ui-layout-without-xml">Two verbose things VS One simple thing</a>
+</p>
+                </div>
+      </div><div class="content" id="slide-14"><div class="container">
+                  <h2 id="%E6%9A%97%E9%BB%99%E7%9A%84%E5%BC%95%E6%95%B0Context">暗黙的引数Context</h2><p><code>android.content.Context</code>を暗黙的引数にしてる
+<br><br>
+</p><pre><code class="prettyprint lang-java">Button button = new Button(context);
+button.setText(&quot;Click&quot;);
+</code></pre>
+                </div>
+      </div><div class="content" id="slide-15"><div class="container">
+                  <h2 id="%E6%9A%97%E9%BB%99%E7%9A%84%E5%BC%95%E6%95%B0Context">暗黙的引数Context</h2><p><code>android.content.Context</code>を暗黙的引数にしてる
+<br><br>
+</p><pre><code class="prettyprint lang-scala">SButton(&quot;Click&quot;)
+</code></pre>
+                </div>
+      </div><div class="content" id="slide-16"><div class="container">
+                  <h2 id="Android%E3%81%AE%E9%97%87%E3%80%81%E7%BD%A0">Androidの闇、罠</h2><ul><li>ライフサイクルの闇
+</li><li>オブジェクトのリークの罠
+</li><li>サポートライブラリとか
+</li></ul>
+                </div>
+      </div><div class="content" id="slide-17"><div class="container">
+                  <p>ここでActivityのライフサイクルについて振り返ってみましょう
+</p>
+                </div>
+      </div><div class="content" id="slide-18"><div class="container">
+                  <p><img alt=""  src="http://developer.android.com/images/activity_lifecycle.png" />
+</p>
+                </div>
+      </div><div class="content" id="slide-19"><div class="container">
+                  <h2 id="Activity%E3%81%AE%E3%83%A9%E3%82%A4%E3%83%95%E3%82%B5%E3%82%A4%E3%82%AF%E3%83%AB">Activityのライフサイクル</h2><ul><li>画面の状態などによって遷移する
+</li><li>随時メソッドが呼び出される
+</li><li>ライフサイクルを考慮したコードを書くべき
+</li></ul>
+                </div>
+      </div><div class="content" id="slide-20"><div class="container">
+                  <h2 id="Activity%E3%81%AE%E3%83%A9%E3%82%A4%E3%83%95%E3%82%B5%E3%82%A4%E3%82%AF%E3%83%AB">Activityのライフサイクル</h2><ul><li>インスタンス生成時に生成できないオブジェクトは多い
+</li><li>主に<code>Context</code>を利用するもの
+</li><li><code>onCreate</code>や<code>onResume</code>で生成するのがセオリー
+</li></ul>
+                </div>
+      </div><div class="content" id="slide-21"><div class="container">
+                  <h2 id="Activity%E3%81%AE%E3%83%A9%E3%82%A4%E3%83%95%E3%82%B5%E3%82%A4%E3%82%AF%E3%83%AB">Activityのライフサイクル</h2><pre><code class="prettyprint lang-java">
+class HogeActivity extends Activity {
+	final private Button mButton = new Button(this); 
+	//アウト
+
+
+</code></pre>
+                </div>
+      </div><div class="content" id="slide-22"><div class="container">
+                  <h2 id="Activity%E3%81%A8%E3%83%A9%E3%82%A4%E3%83%95%E3%82%B5%E3%82%A4%E3%82%AF%E3%83%AB">Activityとライフサイクル</h2><pre><code class="prettyprint lang-java">
+class HogeActivity extends Activity {
+	
+	private Button mButton;
+
+	protected void onCreate(Bundle b) {
+		super.onCreate(b);
+		mButton = new Button(this);
+	}
+}
+</code></pre>
+                </div>
+      </div><div class="content" id="slide-23"><div class="container">
+                  <h2 id="Activity%E3%81%A8%E3%83%A9%E3%82%A4%E3%83%95%E3%82%B5%E3%82%A4%E3%82%AF%E3%83%AB">Activityとライフサイクル</h2><ul><li><code>val</code>宣言できない物も多い
+</li><li><code>lazy val</code>を駆使する？
+</li><li><code>lazy val</code>も怖い
+</li></ul>
+                </div>
+      </div><div class="content" id="slide-24"><div class="container">
+                  <h2 id="Context%E3%83%AA%E3%83%BC%E3%82%AF%E5%95%8F%E9%A1%8C">Contextリーク問題</h2><pre><code class="prettyprint lang-java">private static Drawable back;
+
+protected void onCreate(Bundle b) {
+	super.onCreate(b);
+	final TextView label = new TextView(this);
+	//^LEAK!!
+	if(back == null) back = getBd();
+	label.setBackgroundDrawable(back);
+	//^LEAK!!
+</code></pre>
+                </div>
+      </div><div class="content" id="slide-25"><div class="container">
+                  <h2 id="Context%E3%83%AA%E3%83%BC%E3%82%AF%E5%95%8F%E9%A1%8C">Contextリーク問題</h2><ul><li><code>TextView</code>が<code>Activity</code>のインスタンスを保持している
+</li><li>GCしてくれない
+</li><li>Activity関連のもろもろのオブジェクトがリークする
+</li><li>やばい
+</li></ul>
+                </div>
+      </div><div class="content" id="slide-26"><div class="container">
+                  <h2 id="Context%E3%83%AA%E3%83%BC%E3%82%AF%E5%95%8F%E9%A1%8C">Contextリーク問題</h2><pre><code class="prettyprint lang-java">
+ - final TextView label = new TextView(this);
+ + final TextView label = new TextView(getApplicationContext());
+
+ /*onStop*/
+ label.setBackgroundDrawable(null);
+</code></pre>
+                </div>
+      </div><div class="content" id="slide-27"><div class="container">
+                  <h2 id="Context%E3%83%AA%E3%83%BC%E3%82%AF%E5%95%8F%E9%A1%8C">Contextリーク問題</h2><pre><code class="prettyprint lang-scala">/*app.scala*/
+/*SActivity*/
+override implicit val ctx = this
+
+/*widget.scala*/
+class SButton()(implicit context: Context, //ry
+
+/*your code*/
+SButton()
+//^LEAK!?
+</code></pre>
+                </div>
+      </div><div class="content" id="slide-28"><div class="container">
+                  <h2 id="Context%E3%83%AA%E3%83%BC%E3%82%AF%E5%95%8F%E9%A1%8C">Contextリーク問題</h2><ul><li>Activityを引数に渡すとリークしうる
+</li><li><p>しかし、場合によっては渡すべき
+</p><ul><li>参照されるUIのTheme設定とかに関わる
+</li></ul></li><li>プログラマが制御する必要のある箇所
+</li></ul>
+                </div>
+      </div><div class="content" id="slide-29"><div class="container">
+                  <h2 id="Support+Library%E3%81%A8%E3%81%8B">Support Libraryとか</h2><ul><li>Android2.x系以下に3.x系以上のAPIを提供
+</li><li>まだまだ現役
+</li><li>Support Libraryだけで提供されてるUIもある
+</li></ul>
+                </div>
+      </div><div class="content" id="slide-30"><div class="container">
+                  <h2 id="Support+Library%E3%81%A8%E3%81%8B">Support Libraryとか</h2><ul><li><code>Fragment</code>を2.x系以下で利用するのに必須
+</li><li>UIのパーツ
+</li><li>多画面（解像度的な意味で）対応に必須
+</li></ul>
+                </div>
+      </div><div class="content" id="slide-31"><div class="container">
+                  <h2 id="Support+Library%E3%81%A8%E3%81%8B">Support Libraryとか</h2><ul><li><code>FragmentActivity</code>を使う
+</li><li><code>SActivity</code>は<code>Activity</code>を継承したtrait
+</li><li>使えない！！
+</li></ul>
+                </div>
+      </div><div class="content" id="slide-32"><div class="container">
+                  <h2 id="Support+Library%E3%81%A8%E3%81%8B">Support Libraryとか</h2><ul><li><a  href="https://github.com/pocorall/scaloid/tree/master/scaloid-support-v4">scaloid/scaloid-support-v4</a>
+</li><li>なんかサポートするっぽい？
+</li><li>ドキュメントはまだないっぽい
+</li></ul>
+                </div>
+      </div><div class="content" id="slide-33"><div class="container">
+                  <h2 id="Support+Library%E3%81%A8%E3%81%8B">Support Libraryとか</h2><ul><li>Fragmentは独特のライフサイクルを持つ
+</li><li>インスタンスの生成方法も特殊
+</li><li>Scalaでやんの・・・？
+</li></ul>
+                </div>
+      </div><div class="content" id="slide-34"><div class="container">
+                  <h2 id="%E3%81%BE%E3%81%A8%E3%82%81">まとめ</h2><ul><li>ライフサイクルのあるオブジェクトにScalaは弱い
+</li><li>Scaloidを暖かく見守ろう
+</li><li>モデルやデータ処理では力を発揮できそう
+</li><li>非同期処理とかにもいけるか
+</li></ul>
+                </div>
+      </div><div class="content" id="slide-35"><div class="container">
+                  <h2 id="%E5%AE%A3%E4%BC%9D">宣伝</h2><p> <a  href="http://www.zusaar.com/event/4137003">Live Coding de Night #libcodingso infinite</a>
+</p><p> <img alt=""  src="http://lh5.ggpht.com/tLLzJag7g_ZqLRIu7Faamex9dEllp7WITA92MUfAtgcHIucG_QvUmlXK6cBstr7Qc8fyuw4HDnfyXhv55ZVsIw=s610" /></p>
+                </div>
+      </div>
+          </div>
+        </div>
+        <script type="text/javascript" src="js/custom.js?1394727195144"></script>
+      </body>
+    </html>
