@@ -1,1 +1,21 @@
 /* custom styles */
+
+.topbar {
+	height: 24px;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	z-index: 1000;
+	overflow: visible;
+	background-color: #f3f3f3;
+	border-bottom: 1px solid #ccc;
+}
+
+.footer {
+	text-align: right;
+}
+
+.footer > .left {
+	float: left;
+}

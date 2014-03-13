@@ -1,33 +1,37 @@
 /* custom behavior *//* custom behavior */
 (function  () {
-  var contents = document.getElementsByClassName('content');
-	var link = function  () {
-			var a = document.createElement('a');
-			a.href = "https://twitter.com/numa08";
-			a.innerText = "@numa08";
-			var div = document.createElement('div');
-			div.style.cssText = "float:left";
-			div.appendChild(a);
-			return div;
-		};
-
-	var hashtag = function  () {
-			var div = document.createElement('div');
-			div.innerText = "#新宿Scala座";
-			return div;
-		};
- 
- 
-	var footer = function(){
-			var content = document.createElement('div');
-			content.style.cssText = "text-align:right";
-			content.appendChild(link());
-			content.appendChild(hashtag());
-			return content;
-		};
- 
-	for (var i = contents.length - 1; i >= 0; i--) {
-		console.log(i);
-		contents[i].appendChild(footer());
-	};
+	window.addEventListener("load", function() {
+		var script = document.getElementsByTagName('head')[0].getElementsByTagName('script')[0];
+		script.setAttribute("src", "https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js");
+	}, false);		
 })();
+
+$(function(){
+	//Add Footer
+	$('.content').each(function(index, elem){
+		var link = $("<div>", {
+			"class" : "left",
+		}).append($("<a>", {
+					href 	: "htts://twitter.com/numa08",
+					text    : "@numa08"
+				}));
+
+		var hashtag = $("<a>", {
+			"class" : "right",
+			text    : "#新宿Scala座",
+			href    : "http://numa08.scala.net"
+		});
+
+		var footer = $("<div>", {
+			"class" : "footer",
+ 		}).append(link)
+ 		  .append(hashtag);
+
+ 		$(elem).append(footer);  
+	});
+
+	//Add Header
+	$("#slides").prepend($("<div>",{
+		"class"  : "topbar"
+	}));
+});
