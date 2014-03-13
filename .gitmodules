@@ -1,0 +1,4 @@
+[submodule "gh-pages"]
+	path = gh-pages
+	url = git@github.com:numa08/scala_za_data.git
+	branch = gh-pages
