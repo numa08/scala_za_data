@@ -12,7 +12,8 @@ $(function(){
 		var link = $("<div>", {
 			"class" : "left",
 		}).append($("<a>", {
-			href 	: "htts://twitter.com/numa08",
+			target  : "_blank",
+			href 	: "https://twitter.com/numa08",
 			text    : "@numa08"
 		}));
 
@@ -39,21 +40,24 @@ $(function(){
 	}());
 
 	//Add Header
-	var slideTitle = $("<div>", {
-		"class" : "left"
-	}).append($("<a>", {
-		 	"class" : "topbar_link",
+	$("#slides").prepend(function  () {
+		var slideTitle = $("<div>", {
+			"class" : "left"
+		}).append($("<a>", {
+			"class" : "topbar_link",
 			text : "Scala on Android",
 			href : "http://scala.numa08.net"
 		}));
-	var eventTitle = $("<a>", {
-		"class" : "topbar_link right",
-		text : "新宿Scala座 '14年２月号",
-		href : "http://scala.numa08.net"
-	});
-	var topbar = $("<div>", {
-		"class" : "topbar"
-	}).append(slideTitle)
-	  .append(eventTitle);
-	$("#slides").prepend(topbar);
+		var eventTitle = $("<a>", {
+			"class" : "topbar_link right",
+			text : "新宿Scala座 '14年２月号",
+			href : "http://scala.numa08.net"
+		});
+		var topbar = $("<div>", {
+			"class" : "topbar"
+		}).append(slideTitle)
+		.append(eventTitle);
+
+		return topbar;
+	}());
 });
