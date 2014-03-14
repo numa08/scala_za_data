@@ -1,4 +1,15 @@
 /* custom styles */
+* {
+	color: #666;
+}
+
+h1 {
+	color: #000;
+}
+
+h2 {
+	color: #000;
+}
 
 .topbar {
 	height: 24px;
@@ -33,7 +44,7 @@ a.topbar_link:hover {
 
 .footer {
 	text-align: right;
-	height: 110px;
+	font-size: 25px;
 	position: fixed;
 	bottom: 0px;
 	left: 0px;
@@ -41,7 +52,9 @@ a.topbar_link:hover {
 }
 
 .footer > .left {
-	float: left;
+	position: fixed;
+	bottom: 0px;
+	left: 0px;
 }
 
 ul {
@@ -49,5 +62,5 @@ ul {
 }
 
 .hashtag > .logo {
-	height: 55px;
+	height: 28px;
 }
