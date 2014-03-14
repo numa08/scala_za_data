@@ -23,6 +23,11 @@ $(function(){
 		.append($("<img>", {
 			"src"	: "https://g.twimg.com/Twitter_logo_blue.png",
 			"class" : "logo"
+		}))
+		.append($("<a>", {
+			text : "#新宿Scala座",
+			target : "_blank",
+			href : "https://twitter.com/intent/tweet?text=Scala%20on%20Android&hashtags=新宿Scala座&url=" + encodeURIComponent(window.location.origin  +window.location.pathname)
 		})));
 
 		var footer = $("<div>", {
