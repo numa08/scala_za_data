@@ -57,7 +57,7 @@ a.topbar_link:hover {
 	left: 0px;
 }
 
-ul {
+.footer > ul {
 	list-style: none;
 }
 
