@@ -19,7 +19,8 @@ $(function(){
 		var hashtag = $("<a>", {
 			"class" : "right",
 			text    : "#新宿Scala座",
-			href    : "http://scala.numa08.net"
+			target  : "_blank",
+			href    : "https://twitter.com/intent/tweet?text=Scala%20on%20Android&hashtags=新宿Scala座&url=http%3a%2f%2fnuma08%2egithub%2eio%2fscala_za_data%2f8th%2fnuma08%2f%230"
 		});
 
 		var footer = $("<div>", {
