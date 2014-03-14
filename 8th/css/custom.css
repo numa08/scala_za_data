@@ -33,8 +33,21 @@ a.topbar_link:hover {
 
 .footer {
 	text-align: right;
+	height: 110px;
+	position: fixed;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
 }
 
 .footer > .left {
 	float: left;
+}
+
+ul {
+	list-style: none;
+}
+
+.hashtag > .logo {
+	height: 80px;
 }

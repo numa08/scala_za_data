@@ -8,28 +8,30 @@
 
 $(function(){
 	//Add Footer
-	$('.content').each(function(index, elem){
+	$("#slides").prepend(function  () {
 		var link = $("<div>", {
 			"class" : "left",
 		}).append($("<a>", {
-					href 	: "htts://twitter.com/numa08",
-					text    : "@numa08"
-				}));
+			href 	: "htts://twitter.com/numa08",
+			text    : "@numa08"
+		}));
 
-		var hashtag = $("<a>", {
-			"class" : "right",
-			text    : "#新宿Scala座",
-			target  : "_blank",
-			href    : "https://twitter.com/intent/tweet?text=Scala%20on%20Android&hashtags=新宿Scala座&url=http%3a%2f%2fnuma08%2egithub%2eio%2fscala_za_data%2f8th%2fnuma08%2f%230"
-		});
+		var hashtag = $("<ul>")
+		.append($("<li>",{
+			"class" : "hashtag"
+		})
+		.append($("<img>", {
+			"src"	: "https://g.twimg.com/Twitter_logo_blue.png",
+			"class" : "logo"
+		})));
 
 		var footer = $("<div>", {
 			"class" : "footer",
- 		}).append(link)
- 		  .append(hashtag);
+		}).append(link)
+		.append(hashtag);
 
- 		$(elem).append(footer);  
-	});
+		return footer;
+	}());
 
 	//Add Header
 	var slideTitle = $("<div>", {
