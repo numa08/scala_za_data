@@ -303,11 +303,35 @@ val config = Eval[urls](code)
 
 !SLIDE
 
+### 使ってみた
+
+ - Http-Get(バックグラウンド)
+ - Jsonのパース([Json4s](https://github.com/json4s/json4s))
+ - ListViewに描画
+
+!SLIDE
+
+### 使ってみた
+
+ - [Scalaｻｲｺｰ](https://gist.github.com/numa08/8457273)
+ - ３０行以下で書けた
+
+!SLIDE
+
 ## 気になったところ
  
  - テストの機能はないっぽい
  - Play以上のDSL祭り
  - 今までのAndroidとはかなり違うものに・・・
+
+!SLIDE
+
+## 気になったところ
+
+ - proguard関連が辛いかな
+ - Ideaがまだ微妙
+     - Scalaの補完、エラー通知がなんか変
+     - Android関連の補完はできない
 
 !SLIDE
 
