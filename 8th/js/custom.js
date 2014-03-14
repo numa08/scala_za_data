@@ -19,7 +19,7 @@ $(function(){
 		var hashtag = $("<a>", {
 			"class" : "right",
 			text    : "#新宿Scala座",
-			href    : "http://numa08.scala.net"
+			href    : "http://scala.numa08.net"
 		});
 
 		var footer = $("<div>", {
@@ -31,7 +31,21 @@ $(function(){
 	});
 
 	//Add Header
-	$("#slides").prepend($("<div>",{
-		"class"  : "topbar"
-	}));
+	var slideTitle = $("<div>", {
+		"class" : "left"
+	}).append($("<a>", {
+		 	"class" : "topbar_link",
+			text : "Scala on Android",
+			href : "http://scala.numa08.net"
+		}));
+	var eventTitle = $("<a>", {
+		"class" : "topbar_link right",
+		text : "新宿Scala座 '14年２月号",
+		href : "http://scala.numa08.net"
+	});
+	var topbar = $("<div>", {
+		"class" : "topbar"
+	}).append(slideTitle)
+	  .append(eventTitle);
+	$("#slides").prepend(topbar);
 });
