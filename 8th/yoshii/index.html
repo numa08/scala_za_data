@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>野望</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/solarized.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>個人開発</h1>
+					<h3>たまには何かを作ってみたく</h3>
+					<p>
+						<small>Created by <a href="http://white-azalea.hatenablog.jp/">吉井 温(つつじー)</a></small>
+					</p>
+				</section>
+                
+                <section data-markdown>
+                  ### 誰？
+                  
+                  * 名前 : 吉井温(よしい　すなお)
+                  * HN : azalea, つつじー, 白躑躅
+                  * あだ名 : O, オタク(いろんな意味で)
+                  * HP : [謎言語使いの徒然](http://white-azalea.hatenablog.jp/)
+                  * 仕事 : [AdvanstSoftEngenerring](http://www.ase.co.jp/) のプログラマ。もっぱらWEB屋さん。
+                  * 趣味 : 実装技術/言語の勉強, アクション系ゲーム, ラノベ, アニメ
+                  * 言語 : ？
+                </section>
+
+				<section>
+					<h3>なんでまた？</h3>
+					<p>だって最近ずっと調べものとか調査ネタばっかりだったので、もう少し何か面白い事できないかなと思いまして…</p>
+                    <p>というのは方便で、<a href="http://syosetu.com/user/top/">小説家になろう</a>にちまちまテキストを書いてます。</p>
+                    <p>その時に Evernote を使って書いているのですが、色々と不満がありました。</p>
+				</section>
+                
+                <section>
+                    <h3>何が不満？</h3>
+                    <p>競合処理が余りにも残念過ぎるのです</p>
+                    <ul>
+                        <li class="fragment">競合した内容が『競合したページ』として別管理されます(Windows)</li>
+                        <li class="fragment">競合した内容が一つのページの中で「編集したテキスト」→「競合したテキスト」で二連続になります(Mac)</li>
+                        <li class="fragment">上書きされて、競合内容が消えます(iOS)</li>
+                    </ul>
+                    <p class="fragment">何この体たらく？<strong>きちんとマージしなさいよ</strong>と思いますよね？</p>
+                </section>
+                
+                <section>
+                    <h2>なのでテキスト専用にサイトを作ってます</h2>
+                    <small>今週作り出して、デスマで進んでないんですけどね(-_-;)</small>
+                </section>
+
+                <section>
+                    <h2>その中で色々お世話になってるものを紹介しましょう</h2>
+                </section>
+                
+                <section>
+                    <section>
+                        <h2><a href="http://www.jetbrains.com/idea/">InteliJ IDEA</a></h2>
+                        <p>Playframework 開発者御用達</p>
+                    </section>
+                    <section>
+                        <h3>何がいい？</h3>
+                        <ul>
+                            <li class="fragment">Eclipse と同じ機能や同類のプラグインを入れたときに、比較して早い</li>
+                            <li class="fragment">eclipse/maven/gradle とかのプロジェクトをどれもそのまま取り込める</li>
+                            <li class="fragment"><strong>Scala 系プラグインが強力</strong></li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h3>Scalaプラグインが強力</h3>
+                        <ul>
+                            <li class="fragment">依存 jar とかから補完とか基本だよね</li>
+                            <li class="fragment">implicit まで見てエラーを出してくれる<br>(squeryl なんて DSL すら認識する)</li>
+                            <li class="fragment">implicit まで見て補完対象が出てくる</li>
+                            <li class="fragment">(一度コンパイルすれば)Playframework のテンプレートや router まで補完できる</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h3>SBT 対応プラグインがある</h3>
+                        <ul>
+                            <li class="fragment">build.sbt のプロジェクトをそのまま取り込める</li>
+                            <li class="fragment">(完璧ではないけど)build.sbt の設定エラーを検出してくる</li>
+                            <li class="fragment">(完璧ではないけど)build.sbt の記述を補完してくる</li>
+                            <li class="fragment">実行コンソールを画面内で配置できる</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>当然マルチプラットフォーム</h2>
+                    </section>
+                </section>
+                
+                <section>
+                    <section>
+                        <h2>zen-coding</h2>
+                    </section>
+                    <section>
+                        <h3>zen-coding ？</h3>
+                        <p>後継は Emmet で、結構色々な IDE に組み込まれてる。</p>
+                        <p>何がいいって、タグ打ちが死ぬほど短くなる。</p>
+                    </section>
+                    <section>
+                        <h3>例:BEFORE</h3>
+                        <pre><code>
+(section&gt;(h3.red+p*3))*3
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h3>例:AFTER</h3>
+                        <pre>
+<code>&lt;section&gt;
+    &lt;h3 class="red"&gt;&lt;/h3&gt;
+    &lt;p&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;/p&gt;
+&lt;/section&gt;
+&lt;section&gt;
+    &lt;h3 class="red"&gt;&lt;/h3&gt;
+    &lt;p&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;/p&gt;
+&lt;/section&gt;
+&lt;section&gt;
+    &lt;h3 class="red"&gt;&lt;/h3&gt;
+    &lt;p&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;/p&gt;
+&lt;/section&gt;
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h3>基本ルール</h3>
+                        <ul>
+                            <li>タグ名とスタイル指定 &lt;Tag&gt;.&lt;CSSClass&gt</li>
+                            <li>階層構造は「&lt」で指定</li>
+                            <li>同列階層要素は「+」で指定</li>
+                            <li>算数と一緒で「()」でグループ化して</li>
+                            <li>「&lt;要素&gt;*&lt;数量&gt;」で繰り返す</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h3>導入方法はIDEに合わせて調べてね</h3>
+                        <p>タグ名だけでも補完できるからそれだけでも便利なはず</p>
+                    </section>
+                </section>
+                
+                <section>
+                    <section>
+                        <h2>Scala-Active record</h2>
+                    </section>
+                    <section>
+                        <h3>どんなの？</h3>
+                        <ul>
+                            <li>anorm とか文字列でSQL書くのはだめぽ</li>
+                            <li>Squeryl は良いけど、定義が冗長</li>
+                            <li>他のライブラリも結構似たり寄ったりだから作った</li>
+                            <li>自社製(国産) O/R Mapper</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h3>自社の回し者かよ？</h3>
+                    </section>
+                    <section>
+                        <h3>ごめんなさい</h3>
+                    </section>
+                    <section>
+                        <h3>どう書くの？</h3>
+                        <pre>
+<code>
+package models
+import com.github.aselab.activerecord._
+import com.github.aselab.activerecord.dsl._
+
+case class Person(name: String, age: Int) extends ActiveRecord
+object Person extends ActiveRecordCompanion[Person]
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h3>どう書くの？</h3>
+                        <pre>
+<code>
+package models
+import com.github.aselab.activerecord._
+import com.github.aselab.activerecord.dsl._
+
+object Tables extends ActiveRecordTables {
+  val people = table[Person]
+}
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h3>どう書くの？</h3>
+                        <pre>
+<code>
+  Person("person4", 18).save
+
+  Person.findBy("name", "person1") //=> Some(Person("person1", 25))
+  Person.findBy("age", 55) //=> None
+  Person.findAllBy("age", 18).toList //=> List(Person("person2", 18), Person("person4", 18))
+  Person.where(_.age.~ >= 20).orderBy(_.age desc).toList //=> List(Person("person3", 40), Person("person1", 25))
+                        </code></pre>
+                    </section>
+                </section>
+                
+                <section>
+                    <section>
+                        <h2><a href="http://www.webjars.org/">webjars</a></h2>
+                    </section>
+                    <section>
+                        <h3>なにこれ？</h3>
+                        <p>JQuery とか Bootstrap とか、Webクライアントに渡す CSS/JavaScript を管理してくれる。<br>ぶっちゃけリソースディレクトリが汚れない。</p>
+                    </section>
+                    <section>
+                        <h3>HowToUse</h3>
+                        <p>build.sbt にて</p>
+                        <pre>
+<code>libraryDependencies ++= Seq("org.webjars" %% "webjars-play" % "2.2.0",
+  "org.webjars" % "bootstrap" % "3.1.1",
+  "org.webjars" % "jquery" % "1.11.0", //...
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h3>HowToUse</h3>
+                        <p>router あたりに(※例は Playframework です)</p>
+                        <pre><code>GET   /webjars/*file   controllers.WebJarAssets.at(file)</code></pre>
+                    </section>
+                    <section>
+                        <h3>HowToUse</h3>
+                        <p>テンプレートに(※例は Playframework です)</p>
+                        <pre><code>&lt;link rel='stylesheet' href='@routes.WebJarAssets.at(WebJarAssets.locate("bootstrap.min.css"))'&gt;</code></pre>
+                    </section>
+                    <section>
+                        <h3>Result</h3>
+                        <p>実行結果</p>
+                        <pre><code>&lt;link rel='stylesheet' href='/webjars/bootstrap/3.1.1/css/bootstrap.min.css'&gt;</code></pre>
+                    </section>
+                </section>
+                
+                <section>
+                    <section>
+                        <h2><a href="http://getbootstrap.com/">Bootstrap</a></h2>
+                    </section>
+                    <section>
+                        <h3>なにこれ？</h3>
+                        <p>Twitter 社の作った説明不要の CSS デザインフレームワーク。<br>モバイル/PC 両方で見れるデザインを、かなりシンプルに作れる。</p>
+                        <p class="fragment">ちょっと例が多すぎるので続きはWEBで...</p>
+                    </section>
+                </section>
+                
+                <section>
+                    <section>
+                        <h2><a href="http://www.pac4j.org/">Pac4J</a></h2>
+                        <small>Java 系向け、外部認証ライブラリ群</small>
+                    </section>
+                    <section>
+                        <h3>なにこれ？</h3>
+                        <p>Google/Facebook/Twitter とか、色々なサイトからシングルサインオンを簡単に実装するためのライブラリ。<br>各サイトで認証処理が違ったりするので、個別に対応するのが死ぬほどメンドイ。</p>
+                    </section>
+                    <section>
+                        <h3>HowToUse</h3>
+                        <p>例は Playframework のみ</p>
+                        <ul>
+                            <li class="fragment">Facebook 辺りで開発者登録をしよう(スライドなし)</li>
+                            <li class="fragment">Facebook にアプリを登録しよう(スライドなし)</li>
+                            <li class="fragment">jar を登録する</li>
+                            <li class="fragment">Global.scala で設定</li>
+                            <li class="fragment">router に callback を設定</li>
+                            <li class="fragment">Controller を修正</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h3>How To Use(jar を登録する)</h3>
+                        <p>説明不要の build.sbt</p>
+                        <pre><code>  "org.pac4j" % "play-pac4j_scala" % "1.2.0-SNAPSHOT",
+  "org.pac4j" % "pac4j-oauth" % "1.5.0-SNAPSHOT",</code></pre>
+                    </section>
+                    <section>
+                        <h3>How To Use(Global.scala で設定)</h3>
+                        <pre><code>object Global extends GlobalSettings {
+
+  override def onStart(app: Application) {
+    Logger.info("Application has started")
+
+    val config = play.api.Play.current.configuration
+    val currentHost = config.getString("application.host").getOrElse("http://127.0.0.1:9000")
+
+    val facebookClient = new FacebookClient("ApplicationKey", "ApplicationSecretKey")
+    val clients = new Clients(s"$currentHost/callback", facebookClient)
+
+    Config.setClients(clients)
+  }
+</code></pre>
+                    </section>
+                    <section>
+                        <h3>How To Use(router に callback を設定)</h3>
+                        <pre><code>GET     /            controllers.Application.index
+GET     /login       controllers.Application.login
+GET     /callback    org.pac4j.play.CallbackController.callback()
+POST    /callback    org.pac4j.play.CallbackController.callback()
+GET     /logout      org.pac4j.play.CallbackController.logoutAndRedirect()</code></pre>
+                    </section>
+                    <section>
+                        <h3>How To Use(Controller を修正)</h3>
+                        <pre><code>import org.pac4j.play.scala.ScalaController
+
+object Application extends ScalaController {
+
+  def index = Action { implicit request:Request[AnyContent] =>
+    val user = Option(getUserProfile(request))
+    Ok(views.html.index(user.map(_.getUsername).getOrElse("NoNAME")))
+  }
+
+  def login = Action { implicit request:Request[AnyContent] =>
+
+    val session = this.getOrCreateSessionId(request)
+    val redirect = getRedirectionUrl(request, session, "FacebookClient", "/")
+
+    Redirect(redirect).withSession(session)
+  }
+}
+</code></pre>
+                    </section>
+                </section>
+                
+                <section>
+                    <section>
+                        <h2><a href="https://code.google.com/p/google-diff-match-patch/">google-diff-match-patch</a></h2>
+                    </section>
+                    <section>
+                        <h3>なにこれ？</h3>
+                        <p>各種言語で書かれた Diff ライブラリ。<br>ソースコードでの配布のみで、見れば理解できる範囲。</p>
+                    </section>
+                    <section>
+                        <h3>対応言語</h3>
+                        <ul>
+                            <li class="fragment">C++</li>
+                            <li class="fragment">C#</li>
+                            <li class="fragment">Dart</li>
+                            <li class="fragment">Java</li>
+                            <li class="fragment">Javascript</li>
+                            <li class="fragment">lua</li>
+                            <li class="fragment">ObjectiveC</li>
+                            <li class="fragment">Python2.x</li>
+                            <li class="fragment">Python3.x</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h3>！？</h3>
+                        <p>Dart や lua があって Scala が無いのは一体どういう了見でしょうか？</p>
+                        <strong>(#ﾟДﾟ)y=~~~</strong>
+                        <p><small>まぁJavaありますけどね…</small></p>
+                    </section>
+                </section>
+                
+                <section>
+                    <section>
+                        <h2>最後に</h2>
+                    </section>
+                    <section>
+                        <h3>じゃぁScalaで実装しない？</h3>
+                        <p>ちょっとこの発表終わったらやってみます。というか Java で 85kb か、、、今日中に終われるか微妙</p>
+                    </section>
+                </section>
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
