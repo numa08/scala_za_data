@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=1024" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>技術フィードバック：独自サービスを作る経験</title>
+    
+    <meta name="description" content="GW中に立ち上げたサービスの説明と、技術的フィードバック" />
+    <meta name="author" content="技術開発部：吉井 温" />
+
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:regular,semibold,italic,italicsemibold|PT+Sans:400,700,400italic,700italic|PT+Serif:400,700,400italic,700italic" rel="stylesheet" />
+    <link href="css/impress-demo.css" rel="stylesheet" />
+    <link href="css/customStyle.css" rel="stylesheet" />
+    
+    <link rel="shortcut icon" href="favicon.png" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+</head>
+
+<body class="impress-not-supported">
+
+<div class="fallback-message">
+    <p>ブラウザが対応していません。HTML5が実行可能なブラウザを使用して下さい。</p>
+    <p>推奨ブラウザは最新の <b>Chrome</b>, <b>Safari</b> or <b>Firefox</b> です。</p>
+</div>
+
+<div id="impress">
+
+    <div id="bored" class="step slide" data-x="-1000" data-y="-2000">
+        <q style="align: center;">GW いかがでしたでしょうか？</q>
+    </div>
+
+    <div class="step slide" data-x="0" data-y="-2000">
+        <q>何か <string>クエリエイティブ</string> な作業はしましたでしょうか？</q>
+    </div>
+
+    <div class="step slide" data-x="1000" data-y="-2000">
+        <q>
+            <p>私は <string>UpNote</string> という独自サービスを作成し、公開しました。</p>
+            <p>今回はその経験のお話と、サービスの紹介をします。</p>
+        </q>
+    </div>
+
+    <div id="title" class="step" data-x="0" data-y="0" data-scale="4">
+        <h1>Create own service</h1>
+        <span class="footnote"><sup>*</sup> 吉井　温(つつじー、white-azalea)</span>
+    </div>
+    
+    <div id="back-bone1" class="step" data-x="-2000" data-y="2500" data-z="1500" data-scale="6">
+        <p><b>作った背景</b></p>
+    </div>
+
+    <div id="backbone1" class="step" data-x="-2000" data-y="3600" data-rotate="180" data-z="1500" data-scale="1">
+        <p>Evernote はご存じでしょうか？</p>
+    </div>
+
+    <div id="backbone2" class="step" data-x="-2800" data-y="3200" data-rotate="220" data-z="1500" data-scale="1">
+        <p>OS を選ばないクラウドのメモ帳です</p>
+    </div>
+
+    <div id="backbone3" class="step" data-x="-3000" data-y="2500" data-rotate="270" data-z="1500" data-scale="1">
+        <p>OS を選ばない ≒ Windowsで書いたメモを iPhone/android で編集できる</p>
+    </div>
+
+    <div id="backbone4" class="step" data-x="-2800" data-y="1800" data-rotate="320" data-z="1500" data-scale="1">
+        <p>でも良い事だけでも無いのです</p>
+    </div>
+
+    <div id="backbone5" class="step" data-x="-2000" data-y="1400" data-rotate="360"  data-z="1500" data-scale="1">
+        <p>そう皆様お馴染みの <strong>CONFLICT</strong></p>
+    </div>
+
+    <div id="backbone6" class="step" data-x="-1200" data-y="1800" data-rotate="400" data-z="1500" data-scale="1">
+        <div style="text-align: left;">
+            問:
+            <ol>
+                <li>あるテキスト(Version1)を iPad で編集します。</li>
+                <li>保存を忘れて Windows でこのテキスト(Version1)を編集保存します→ Version2 が出来ました</li>
+                <li>iPad で起動してみたら、書きかけがあり、自動で保存されます</li>
+            </ol>
+            
+            <b>何が起きますか？</b>
+        </div>
+    </div>
+
+    <div id="backbone7" class="step" data-x="-700" data-y="2500" data-rotate="450" data-z="1500" data-scale="1">
+        <img src="black-hole.jpg" alt="">
+        <p>参考：NGC1277　ブラックホール</p>        
+    </div>
+
+    <div id="backbone8" class="step" data-x="-1100" data-y="3300" data-rotate="495" data-z="1500" data-scale="1">
+        <p><b>解：Windowsの修正が消えます</b></p>
+    </div>
+
+    <div id="back-bone9" class="step" data-x="-2200" data-y="2500" data-z="-1000" data-rotate="270" data-scale="1">
+        <p>差分管理できるメモ帳が欲しい… <br>それも専用ソフトなしで動かしたい</p>
+    </div>
+
+    <div id="back-bone10" class="step" data-x="-1800" data-y="2500" data-z="-1000" data-rotate="270" data-scale="1">
+        <b><a href="http://www.white-azalea.net" target="_blank">という事で作りました</a></b>
+    </div>
+
+    <div id="items" class="step"
+         data-x="-2200" data-y="-2000" data-z="2000"
+         data-rotate="-20" data-scale="5">
+        <strong>使った道具</strong>
+    </div>
+
+    <div id="items1" class="step"
+         data-x="-2700" data-y="-2500" data-z="0"
+         data-rotate="20" data-scale="1">
+        <ul class="align-left">
+            <li>言語: Scala</li>
+            <li>Framework: Playframework2.2</li>
+            <li>DB: MySQL5.5</li>
+            <li>O/R: Scala ActiveRecord</li>
+        </ul>
+    </div>
+
+    <div id="items2" class="step"
+         data-x="-1800" data-y="-1500" data-z="-2000"
+         data-rotate="" data-scale="1">
+        <ul class="align-left">
+            <li>差分作成: <a href="https://code.google.com/p/google-diff-match-patch/">google-diff-match-patch</a></li>
+            <li>認証   : <a href="http://www.pac4j.org/">pac4j</a></li>
+            <li>UI   : <a href="http://getbootstrap.com/">Bootstrap3</a></li>
+            <li>Markdown: <a href="https://github.com/sirthias/pegdown">Pegdown</a></li>
+        </ul>
+    </div>
+
+    <div id="items3" class="step"
+         data-x="-2200" data-y="-3500" data-z="-4000"
+         data-rotate="" data-scale="1">
+        <h2>精神安定剤</h2>
+        <img src="undef.jpg" alt="" width="600">
+    </div>
+
+    <div id="tech" class="step"
+         data-x="2700" data-y="0"
+         data-rotate="0" data-scale="6">
+        <strong class="align-left">使った技術</strong>
+    </div>
+
+    <div id="tech1" class="step"
+         data-x="2400" data-y="500"
+         data-rotate="0" data-scale="1">
+        <div class="align-left">
+            <strong>Merkdown</strong>
+            <p class="align-left">
+                マークアップドキュメントと呼ばれるものです。 <br>
+                <pre style="background-color: #fff;">
+# タイトル
+通常ドキュメント。
+* リスト1
+* リスト2
+                </pre>
+            </p>
+        </div>
+    </div>
+
+    <div id="tech2" class="step"
+         data-x="3400" data-y="500"
+         data-rotate="0" data-scale="1">
+        <div class="align-left">
+            <strong>RHEL系鯖設定</strong>
+            <p>
+                起動スクリプトとか SELinux とか…。<br>
+                これを書き出すと切がないので割愛。<br>
+                それに準じた内容をそのうち <a href="http://white-azalea.hatenablog.jp/">Blog</a> に書きます。
+            </p>
+        </div>
+    </div>
+
+    <div id="tech3" class="step"
+         data-x="2400" data-y="-500"
+         data-rotate="0" data-scale="1">
+        <div class="align-left">
+            <strong>OAuth2</strong>
+            <p>
+                Web アプリケーションの認証方式です。 <br>
+                Facebook や Twitter のアカウントでログインできるサービスでは、この方式を使っています。 <br>
+            </p>
+        </div>
+    </div>
+
+    <div id="tech4" class="step"
+         data-x="3400" data-y="-500"
+         data-rotate="0" data-scale="1">
+        <div class="align-left">
+            <strong>セキュリティ</strong>
+            <p>
+                XSS, ClickJacking, JSInjection, CSRF, アップロード攻撃, contentType偽装…その他。 <br>
+                様々な攻撃があり、説明し切れない位です。
+            </p>
+        </div>
+    </div>
+
+    <div id="tech6" class="step"
+         data-x="4200" data-y="0" data-z="-6000"
+         data-rotate="0" data-scale="1">
+        <div class="align-left">
+            <strong>Chef</strong>
+            <p>
+                以前この場でも発表があったサーバの設定ツールです。 <br>
+                最大の利点は、サーバを再インストールしてもコマンド一発で元の状態に戻ります。 <br>
+                サーバの設定が残って差分管理が出来る点も嬉しいですよね？
+            </p>
+        </div>
+    </div>
+
+    <div id="tech7" class="step"
+         data-x="4200" data-y="700" data-z="-6000"
+         data-rotate="0" data-scale="1">
+        <div class="align-left">
+            <strong>WebStorage</strong>
+            <p>
+                HTML5 以降で、ブラウザ自体にDBが組み込まれました。 <br>
+                現在、主要ブラウザは殆ど対応済みになっています。 <br>
+                <strong>ネットワークが切れても操作可能</strong>な所が最大の利点でしょう。
+            </p>
+        </div>
+    </div>
+
+    <div id="tech8" class="step"
+         data-x="4200" data-y="700" data-z="13000"
+         data-rotate="0" data-scale="1">
+        <div class="align-left">
+            <strong>現実逃避</strong>
+            <img src="mikaku002.jpg" alt="" width="800" />
+        </div>
+    </div>
+
+    <div id="comment" class="step"
+         data-x="-2900" data-y="0" data-z="0"
+         data-rotate="0" data-scale="6">
+        <strong>感想</strong>
+    </div>
+
+    <div id="comment1" class="step"
+         data-x="-2900" data-y="-600" data-z="-500"
+         data-rotate="0" data-scale="2">
+        <p>ここまでかなり駆け足でしたが、自分でサービスを作ってサービスインまで持って行くと言うのは勉強になりました。</p>
+    </div>
+
+    <div id="comment2" class="step"
+         data-x="-2200" data-y="0" data-z="-1000"
+         data-rotate="0" data-scale="2">
+        <p>1. ハードの制約を強く意識出来る</p>
+    </div>
+
+    <div id="comment3" class="step"
+         data-x="-2900" data-y="600" data-z="-1500"
+         data-rotate="0" data-scale="2">
+        <p>2. セキュリティでミスしたらわが身</p>
+    </div>
+
+    <div id="comment4" class="step"
+         data-x="-3200" data-y="0" data-z="-2000"
+         data-rotate="0" data-scale="2">
+        <p>3. サーバの設定も身に付く</p>
+    </div>
+
+    <div id="comment6" class="step"
+         data-x="-2600" data-y="0" data-z="-4000"
+         data-rotate="0" data-scale="2">
+        <p>4. 実家(福島県郡山市)が聖地であったことを知る</p>
+    </div>
+
+    <div id="comment5" class="step"
+         data-x="-4000" data-y="4000" data-z="-2000"
+         data-rotate="0" data-scale="1">
+        <p>最近、クラウドを使えばサーバも安いですから、</p>
+        <strong>個人でやってみるのも一興ですよ？</strong>
+    </div>
+
+    <div id="overview" class="step" data-x="0" data-y="500" data-scale="10">
+    </div>
+</div>
+
+<div class="hint">
+    <p>← か → キーでスライドが移動します。</p>
+</div>
+<script>
+if ("ontouchstart" in document.documentElement) { 
+    document.querySelector(".hint").innerHTML = "<p>Tap on the left or right to navigate</p>";
+}
+</script>
+
+<script src="js/impress.js"></script>
+<script>impress().init();</script>
+
+</body>
+</html>

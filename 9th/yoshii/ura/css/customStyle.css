@@ -1,0 +1,19 @@
+.step {
+    text-align: center;
+}
+
+b {
+    font-weight: bold;
+}
+
+h1 {
+    line-height: 80%;
+}
+
+ol {
+    list-style-type: upper-roman;
+}
+
+.align-left {
+    text-align: left;
+}
