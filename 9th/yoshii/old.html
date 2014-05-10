@@ -1,0 +1,519 @@
+<!doctype html>
+<html lang="ja">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>ここ1月の僕</title>
+
+		<meta name="description" content="日記">
+		<meta name="author" content="吉井　温">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>ここ1月の僕</h1>
+					<h3>何か変なことやってる。。。</h3>
+					<p>
+						<small>Created by 吉井 温＜白躑躅,しろつつじ＞</small>
+					</p>
+				</section>
+
+				<section data-markdown>
+					### ダイジェスト
+
+					* 進撃の開発環境
+					  * Chef + Vagrant でコマンド一発VM作成
+					  * 必要なものリスト
+					  * Java + SBT環境の書き方
+					* 見せてもらおうかNoSQLの性能とやらを！
+					  * Cassandra, Riak, Redius も弄ってみた
+					  * MongoDB + Casbah + Salat に落ち着いた
+					* MongoDB を真面目に書くとき
+					  * よかろう、ならばDSLだ
+					* 集合知研究用のデータサンプルが入手してこける
+					  * 荒ぶる協調フィルタリング
+				</section>
+				<section>
+					<section data-markdown>
+						# 進撃の開発環境
+					</section>
+					<section data-markdown>
+						### 俺はドザーを辞めるぞ！JOJO!
+						
+						メイン PC を今さら Ubuntu 13.10 に変えてしまいました。
+						
+						Windows はSkypeの安定動作がほしい時だけ使います。
+						
+						そもそもなんでUbuntu？
+					</section>
+					<section data-markdown>
+						### 僕のコレが窓を毛嫌いしててね、、、
+						
+						* 特に Ruby 系の実験したいと思うと致命的
+						* 口述の Vagrant プラグインが窓だと相性悪くてインストールできない
+					</section>
+					<section data-markdown>
+						###  僕が Ubuntu を選んだ理由
+						
+						apt-get で欲しいものは殆ど手に入った
+						
+						* byobu
+						* virtualbox
+						* OpenJDK シリーズ
+					</section>
+					<section data-markdown>
+						### Chef + Vagrant でセットアップ
+						
+						なんでも世の中には Vagrant とか言う簡単に VM 拾って来れるソフトがあるらしい。
+						
+						ということで、Ruby 環境と Vagrant を入れてみる。
+						
+						```
+						  sudo apt-get update 
+						  sudo apt-get upgrade
+						  sudo apt-get install ruby ruby-dev git vim  virtualbox
+						  sudo gem update
+						  sudo gem bundler
+						```
+					</section>
+					<section data-markdown>
+						### Chef + Vagrant でセットアップ
+						
+						Vagrant 本体はここから最新版をDLすればよい。
+						
+						http://www.vagrantup.com/
+						
+						もうこれで 2 行書けばVMが立ち上がる。
+					</section>
+					<section data-markdown>
+						### Chef + Vagrant でセットアップ
+						
+						今後は 2 行書けばVMが立ち上がる。
+						
+						http://www.vagrantbox.es/ から欲しいVMを見つけてURLをメモしたら
+						
+						```
+						  vagrant init devian https://dl.dropboxusercontent.com/u/197673519/debian-7.2.0.box
+						  vagrant up
+						```
+						
+						* `vagrant ssh` 
+						* `vagrant ssh-config --host debian >> ~/.ssh/config` すれば、`ssh debian` もできる
+						* `bagrant halt` でシャットダウン
+						
+						共有フォルダに関しては`Vagrantfile`を開けばわかる筈。
+					</section>
+					<section data-markdown>
+						### Chef + Vagrant でセットアップ
+						
+						次は chef という、リモート環境セットアップツールだ。
+						
+						ついでに関連プラグインもそれなりに入れてしまおう。
+						
+						```
+						  sudo gem install chef
+						  knife configure # 出てくる値は全部デフォルトでいい
+						```
+						
+						関連プラグインとして、`knife-solo berkshelf vagrant-omnibus` まで入れておくと困らない。
+					</section>
+					<section data-markdown>
+						### Chef + Vagrant でセットアップ
+						
+						* `knife solo init scala_repo` と叩いて、サーバ設定を用意する。
+						  * scala_repo がマシン１台に対する設定の論理単位
+						* scala_solo/Berksfile を開いて、後述の設定を入力する
+						* `berks install` 実行
+						
+						Berksfile の中身
+						```
+						  site :opscode
+						  
+						  cookbook 'apt'
+						  cookbook 'git'
+						  cookbook 'java'
+						  cookbook 'scala-sbt', github: "garrettux/scala-sbt-cookbook"
+						```
+						
+						* cookbook はアプリケーションのインストール方法が書かれた手順書みたいなもの
+						* github の `opscode-cookbooks` は `cookbook 'XXX'` だけで入る
+						* 自前とかサードパーティの cookbook も入るけど、長くなるので割愛
+					</section>
+					<section data-markdown>
+						### Java + SBT 環境の書き方
+						
+						*あと少し！*
+						
+						* scala_solo のディレクトリ内で `vagrant init...` すると、Vagrantfile というファイルが出来上がる。
+						* これを開いて、`config.vm.provision :chef_solo` を有効化する
+						
+						Vagrantfile
+						```
+						  # Enable provisioning with chef solo, specifying a cookbooks path, roles
+						  # path, and data_bags path (all relative to this Vagrantfile), and adding
+						  # some recipes and/or roles.
+						  #
+						  config.vm.provision :chef_solo do |chef|
+							chef.cookbooks_path = "cookbooks"
+						  #   chef.roles_path = "../my-recipes/roles"
+						  #   chef.data_bags_path = "../my-recipes/data_bags"
+							chef.add_recipe "apt"
+							chef.add_recipe "git"
+							chef.add_recipe "scala-sbt" # scala-sbt は java もセットアップする
+						  #
+						  #   # You may also specify custom JSON attributes:
+						  #   chef.json = { :mysql_password => "foo" }
+						  end
+						```
+					</section>
+					<section data-markdown>
+						### 環境3分クッキング
+						
+						後は、`vagrant up` と叩くと、SBT セットアップ済みのVM環境が手に入る。
+						
+						クリーンしたくなったら `vagrant destroy` すると VM が消えるので、`vagrant up` すれば真っ新な環境が手に入る。
+						
+						で、実は chef 自体は ssh できるリモートマシンなら何でも設定を流し込めるので、リモート上の Ubuntu(ssh ubuntu 出来る状態なら) に対して、
+						`knife solo cook ubuntu -o COOKBOOK名` でセットアップできる。
+						
+						他の使い方はドキュメント参照。
+					</section>
+				</section>
+				<section>
+					<section data-markdown>
+						# 見せてもらおうかNoSQLの性能とやらを！
+					</section>
+					<section data-markdown>
+						### Cassandra, Riak, Redius も弄ってみた
+						
+						軽く流しますよ。
+						
+						* Cassandra
+						  * ディレクトリ構造のようにデータを保持できる KVS の一種
+						  * スケーリングは超強力、しかも早い
+						    * でも１台あたりの負荷が高いと余裕で落ちる
+						  * Facebook とかが採用
+						  * Scala からは Java の Hector をラップして使うのが一番よさそう
+					</section>
+					<section data-markdown>
+						### Cassandra, Riak, Redius も弄ってみた
+						
+						軽く流しますよ。
+						
+						* Riak
+						  * ほぼ純粋なKVS
+						  * スケーリングは超強力、でも１台あたりの性能は遅い
+						  * 安定性はかなりのもの
+						  * Yammer が採用
+						  * Scala からは http://riak.scalapenos.com/ が有名そう
+					</section>
+					<section data-markdown>
+						### Cassandra, Riak, Redius も弄ってみた
+						
+						軽く流しますよ。
+						
+						* Redius
+						  * 永続化できなくなった(2.6 ＞＝)
+						  * 速度は最速と言ってよい(というか memcache だし...)
+						  * メモリに入りきらないデータ数になると、戦略を決めて削除してしまう
+						  * Scala 評価してない、、、。
+						  
+						* 集合知研究用のデータサンプルが入手してこける
+						  * 荒ぶる協調フィルタリング
+						* MongoDB を真面目に書くとき
+						  * よかろう、ならばDSLだ
+					</section>
+				</section>
+				<section>
+					<section data-markdown>
+						# MongoDB を真面目に書くとき
+					</section>
+					<section data-markdown>
+						### MongoDB って何よ？
+						
+						テーブル定義の要らない DB(NoSQL) の一種です。
+						
+						データは、JSON 式になって保存されます。
+						
+						```json
+						  {
+						    "_id":{"$_id", "プライマリキー"},
+							"users":[
+							  {
+							    "name":"azalea",
+							    "age":30
+							  },
+							  ...
+							]
+						  }
+						```
+						
+						ubuntu だと、apt-get で入りました。
+						
+						1M あるレコードの Insert がほぼ 1-2分で終わるという驚きの速度。
+					</section>
+					<section data-markdown>
+						### Casbah + Salat
+						
+						Scala から Monggo にアクセスする場合、それなりに選択肢があります。
+						
+						まぁ、何も知りませんでしたし、Casbah をそのまま叩いた訳ですよ。
+						
+						でも、これはもう説明だってしたくありません。
+						
+						気になる人は [Scala から MongoDB へアクセスする Casbah を真面目に使ってみる](http://white-azalea.hatenablog.jp/entry/2013/11/25/152816) を読んで、涙ぐましい努力の流れを見てください。
+					</section>
+					<section data-markdown>
+						### Casbah + Salat
+						
+						で、次に Salat という Casbah のラッパーライブラリを使いました。(因みに lift-mongodb というものもあるのですが、他の Lift パッケージに依存しまくって遅かったので、採用しませんでした)
+						
+						build.sbt
+						```scala
+							scalaVersion := "2.10.2"
+
+							resolvers ++= Seq(
+							  "repo.novus rels" at "http://repo.novus.com/releases/",
+							  "Sonatype OSS" at "https://oss.sonatype.org/content/repositories/releases"
+							)
+
+							libraryDependencies ++= Seq(
+							  "org.mongodb" %% "casbah" % "2.6.4",
+							  "com.novus" %% "salat" % "1.9.4"
+							)
+						```
+					</section>
+					<section data-markdown>
+						### Casbah + Salat
+						
+						DB.scala
+						```scala
+							import com.mongodb.casbah.Imports._
+
+							trait DB {
+							  private val host = "127.0.0.1"
+							  private val port = 27017
+							  private val databaseName = "test_database"
+							  private val client       = MongoClient(host, port)
+							  private val threadLocal  = new ThreadLocal[MongoDB]
+
+							  def db(dbName:String):MongoDB = client(dbName)
+
+							  def get() = {
+								Option(threadLocal.get()).getOrElse({
+								  val dbInstance = db(databaseName)
+								  threadLocal.set(dbInstance)
+								  dbInstance
+								})
+							  }
+							}
+
+							object DB extends DB
+						```
+					</section>
+					<section data-markdown>
+						### Casbah + Salat
+						
+						Salat デフォルト使用
+						
+						Sample.scala
+						```scala
+							import com.mongodb.casbah.Imports._
+							import com.novus.salat._
+							import com.novus.salat.global._
+							import scala.collection.JavaConversions._
+
+							case class User(uid:String, provider:String, age:Int)
+
+							object Sample extends App {
+							  val col = DB.get().getCollection("test_collection")
+							  val userObj = grater[User].asDBObject(User("Azalea", "Facebook", 30))
+							  val ins_result = col.insert(userObj)
+							  println(ins_result)
+							  
+							  val result = col.find()
+							  result.iterator().foreach(dbo => {
+							    println(grater[User].asObject(dbo))
+							  })
+							}
+						```
+					</section>
+					<section data-markdown>
+						### Casbah + Salat
+						
+						もっと便利に
+						
+						Sample.scala
+						```scala
+							import com.novus.salat._
+							import com.novus.salat.global._
+							import com.novus.salat.annotations._
+							import com.novus.salat.dao._
+
+							case class User(@Key("_id") uid:String, provider:Option[String], age:Int)
+
+							object User extends SalatDAO[User, String](DB.get()("users"))
+
+							object Sample extends App {
+							  val col = DB.get().getCollection("test_collection")
+							  val user = User("Azalea", None, 30)
+
+							  // 保存！
+							  User.save(user)
+
+							  val userObj = User.findOneById("Azalea").get
+
+							  // 更新！
+							  User.save(userObj.copy(provider = Some("Facebook")))
+
+							  // 検索！(25 歳以上)
+							  val users:Iterator[User] = User.find(
+							    ref = MongoDBObject("age" -> MongoDBObject("$gte" -> 25)))
+							}
+						```
+					</section>
+					<section data-markdown>
+						### Casbah + Salat
+						
+						*Scaler ならば疑問を挟め！*
+						
+						まず、MongoDB の検索クエリがそもそも JSON である。ちなみに 25 歳以上を検索とはこう書く。
+						
+						`{ "age":{ "$get": 25 }}`
+						
+						これを Casbah や Salat で検索する場合はこう書かなければならない。
+						
+						`MongoDBObject("age" -> MongoDBObject("$gte" -> 25))`
+						
+						ウゼェ...( ﾟДﾟ)、
+					</section>
+				</section>
+				<section>
+					<section data-markdown>
+						# 宜しい！ならDSLだっ！
+					</section>
+					<section data-markdown>
+						### 宜しい！ならDSLだっ！
+						
+						*そもそも僕らはこう書きたいんだ！*
+						
+						```scala
+						  val users = User.find(ref = User.age >= 25)
+						```
+					</section>
+					<section data-markdown>
+						### 宜しい！ならDSLだっ！
+						
+						でもやってみれば分かるが、Typesafe にするには相当血のにじむ努力が欲しい。
+						
+						というか reflection 使いまくるので遅い。
+						
+						だがこれなら。。。
+						
+						```scala
+						  val users = User.find('age >= 25)
+						```
+					</section>
+					<section data-markdown>
+						### 宜しい！ならDSLだっ！
+						
+						コードは非公開...だけどまぁ、Scala を知っている人なら 30 ～ 40 分でできると思う。
+						
+						```scala
+						  import salat.dsl.SalatDSL._
+
+						  // 検索！(25 歳以上)
+						  val users = User.find(ref = 'age >= 25)
+
+						  println(users.toList)
+						```
+						
+						ほげっと
+						
+						```
+							List(User(Azalea,Some(Facebook),30))
+							[success] Total time: 13 s, completed 2013/12/07 12:19:26
+						```
+					</section>
+				</section>
+				<section>
+					<section data-markdown>
+						# 集合知研究用のデータサンプルが入手してこける
+					</section>
+					<section data-markdown>
+						### 荒ぶる協調フィルタリング
+						
+						映画推薦アルゴリズム試験の為に、「MovieLens 1M」をダウンロード。
+						
+						一度全組み合わせの計算をさせようとしたのですが、組み合わせ数が多すぎて、16G の仮想マシンの方が容量不足で倒れました。
+						
+						因みに実行時間も相当なもので、おそらく 3 日位かかる見込みでしょう。
+						
+						その時のコードは Blog [謎言語使いの徒然](http://white-azalea.hatenablog.jp/) に載ってます。
+					</section>
+				</section>
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>

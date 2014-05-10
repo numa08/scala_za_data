@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>UpNote</title>
+
+		<meta name="description" content="欲しくて作った何か">
+		<meta name="author" content="Azalea">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/solarized.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>UpNote</h1>
+					<h3>欲しいから作ってみた</h3>
+					<p>
+						<small>Created by <a href="http://white-azalea.hatenablog.jp/">吉井 温(つつじー)</a></small>
+					</p>
+				</section>
+                
+                <section data-markdown>
+                  ### 誰？
+                  
+                  * 名前 : 吉井温(よしい　すなお)
+                  * HN : azalea, つつじー, 白躑躅
+                  * あだ名 : O, オタク(いろんな意味で)
+                  * HP : [謎言語使いの徒然](http://white-azalea.hatenablog.jp/)
+                  * 仕事 : [AdvanstSoftEngenerring](http://www.ase.co.jp/) のプログラマ。もっぱらWEB屋さん。
+                  * 趣味 : 実装技術/言語の勉強, アクション系ゲーム, ラノベ, アニメ
+                  * 言語 : ？
+                </section>
+
+				<section>
+					<h3>なんでまた？</h3>
+                    <ul>
+                        <li>小説を趣味で書いてたけど、複数のデバイスで書いてて競合の問題が起きたから。</li>
+                        <li>EverNOTE を使って書いていたのですが、複数デバイスを使うと競合が起きるのです。</li>
+                    </ul>
+				</section>
+                
+                <section>
+                    <h3>何が不満？</h3>
+                    <p>競合処理が余りにも残念過ぎるのです</p>
+                    <ul>
+                        <li class="fragment">競合した内容が『競合したページ』として別管理されます(Windows)</li>
+                        <li class="fragment">競合した内容が一つのページの中で「編集したテキスト」→「競合したテキスト」で二連続になります(Mac)</li>
+                        <li class="fragment">上書きされて、競合内容が消えます(iOS)</li>
+                    </ul>
+                    <p class="fragment">何この体たらく？<strong>きちんとマージしなさいよ</strong>と思いますよね？</p>
+                </section>
+                
+                <section>
+                    <h2>ということで<a href="https://www.white-azalea.net/">作った</a></h2>
+                    <small>多分７～８人日位かけてる(ほぼ６～７割がサーバ設定とかいう素敵な事態)</small>
+                </section>
+
+                <section>
+                    <h2>ちょっと<a href="https://www.white-azalea.net/">デモ</a></h2>
+                </section>
+                
+                <section>
+                    <section>
+                        <h2>最も時間のかかった作業は？</h2>
+                    </section>
+                    <section>
+                        <h2>それは…</h2>
+                    </section>
+                    <section>
+                        <h2>Serverの設定です</h2>
+                    </section>
+                </section>
+                
+                <section>
+                    <section>
+                        <h3>時間がかかったもの</h3>
+                        <ul>
+                            <li class="fragment">CentOS5.10 という微妙なバージョン</li>
+                            <li class="fragment">Apache のSSL＋mod_proxy設定</li>
+                            <li class="fragment">MySQL と既存インストール済みアプリとの競合</li>
+                            <li class="fragment">サービス設定スクリプト</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>そしてそれを全て CHEF で書く</h2>
+                    </section>
+                </section>
+                
+                <section>
+                    <section>
+                        <h2>Chef？</h2>
+                    </section>
+                    <section data-markdown>
+                        ### Chef とは？
+                        
+                        サーバを所定の状態に仕立てるツール
+                        
+                        * サーバの設定内容がコードとして残る
+                        * Ruby コードで作成されるのでバージョン管理が出来る
+                    </section>
+                    <section>
+                        <h1>使い方は<a href="old.html">同時配布のスライド</a>で</h1>
+                    </section>
+                </section>
+                
+                <section data-markdown>
+                    ### 今後のプラン
+                    
+                    * i18n 対応やらないとなー
+                    * ReST 書式対応したいな
+                    * 「小説家になろう」互換フォーマット記法の作成
+                    * 作成したテキストの公開設定
+                    * スマホ向メニューデザイン
+                </section>
+                
+            </div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
